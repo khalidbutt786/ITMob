@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText username, password, repassword;
+    EditText email, password, repassword, vertragsID;
     Button signup, signin;
 
     DBHelper dbHelper;
@@ -21,7 +21,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        username = (EditText) findViewById(R.id.username);
+        email = (EditText) findViewById(R.id.email);
+        vertragsID = (EditText) findViewById(R.id.vertragsID);
+
         password = (EditText) findViewById(R.id.password);
         repassword = (EditText) findViewById(R.id.repassword);
         signup = (Button) findViewById(R.id.btnsignup);
@@ -32,30 +34,36 @@ public class MainActivity extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String user = username.getText().toString();
+
+
+                String vertragsID_user = vertragsID.getText().toString();
+                String useremail = email.getText().toString();
                 String pass = password.getText().toString();
                 String repass = repassword.getText().toString();
 
-                if(user.equals("")||pass.equals("")||repass.equals(""))
-                    Toast.makeText(MainActivity.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
+
+                if(useremail.equals("")||pass.equals("")||repass.equals("")|| vertragsID_user.equals(""))
+                    Toast.makeText(MainActivity.this, "Bitte alle Felder ausfüllen", Toast.LENGTH_SHORT).show();
                 else{
                     if(pass.equals(repass)){
-                        Boolean checkuser = dbHelper.checkusername(user);
-                        if(checkuser==false){
-                            Boolean insert = dbHelper.insertData(user, pass);
+                        Boolean checkuser = dbHelper.checkusername(useremail);
+                        Boolean accountwithvertragIDaleradyExists = dbHelper.checkvertrag(useremail, vertragsID_user);
+
+                        if(checkuser==false && accountwithvertragIDaleradyExists==true){
+                            Boolean insert = dbHelper.insertDataUser(useremail,pass, Integer.parseInt(vertragsID_user));
                             if(insert==true){
-                                Toast.makeText(MainActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Registrierung erfolgreich", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
                                 startActivity(intent);
                             }else{
-                                Toast.makeText(MainActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Registrierung fehlgeschlagen", Toast.LENGTH_SHORT).show();
                             }
                         }
                         else{
-                            Toast.makeText(MainActivity.this, "User already exists! please sign in", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Angegebenen Daten konnten keinem Vertrag zugeordnet werden", Toast.LENGTH_SHORT).show();
                         }
                     }else{
-                        Toast.makeText(MainActivity.this, "Passwords not matching", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Passwörter nicht identisch", Toast.LENGTH_SHORT).show();
                     }
                 } }
         });
