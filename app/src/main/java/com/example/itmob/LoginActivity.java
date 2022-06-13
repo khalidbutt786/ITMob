@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                     if(checkuserpass==true){
                         Toast.makeText(LoginActivity.this, "Anmeldung erfolgreich", Toast.LENGTH_SHORT).show();
                         Intent intent  = new Intent(getApplicationContext(), HomeActivity.class);
+                        intent.putExtra("Email", userEmail);
                         startActivity(intent);
                     }else{
                         Toast.makeText(LoginActivity.this, "Falsche Anmeldedaten", Toast.LENGTH_SHORT).show();

@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                             Boolean insert = dbHelper.insertDataUser(useremail,pass, Integer.parseInt(vertragsID_user));
                             if(insert==true){
                                 Toast.makeText(MainActivity.this, "Registrierung erfolgreich", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                                 startActivity(intent);
                             }else{
                                 Toast.makeText(MainActivity.this, "Registrierung fehlgeschlagen", Toast.LENGTH_SHORT).show();
