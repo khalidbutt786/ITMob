@@ -1,17 +1,27 @@
 package com.example.itmob;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.MenuItem;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class HomeActivity extends AppCompatActivity {
 
 
-    CardView schritte, workout, community, geraeteanweisung, nfc, vertragsdaten;
+
+    BottomNavigationView bottomNavigationView;
+
+    NFC nfcFragment = new NFC();
+    Profil profilFragment = new Profil();
+    QRCamera qrCameraFragment = new QRCamera();
+    Community communityFragment = new Community();
+    Workout workoutFragment = new Workout();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,58 +30,38 @@ public class HomeActivity extends AppCompatActivity {
 
         String username = getIntent().getStringExtra("Email");
 
-        schritte = findViewById(R.id.schritte);
-        workout = findViewById(R.id.workout);
-        community = findViewById(R.id.community);
-        geraeteanweisung = findViewById(R.id.geraeteanweisung);
-        nfc = findViewById(R.id.nfc);
-        vertragsdaten = findViewById(R.id.vertragsdaten);
+        bottomNavigationView = findViewById(R.id.bottomView);
+        bottomNavigationView.setSelectedItemId(R.id.nfc);
 
-        schritte.setOnClickListener(new View.OnClickListener() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, nfcFragment).commit();
+
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(HomeActivity.this, "schritte page", Toast.LENGTH_SHORT).show();
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch (item.getItemId()){
+
+                    case R.id.nfc:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, nfcFragment).commit();
+                        return true;
+                    case R.id.profil:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, profilFragment).commit();
+                        return true;
+                    case R.id.community:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, communityFragment).commit();
+                        return true;
+                    case R.id.workout:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, workoutFragment).commit();
+                        return true;
+                    case R.id.qrcamera:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, qrCameraFragment).commit();
+                        return true;
+                }
+
+                return false;
             }
         });
 
-        workout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(HomeActivity.this, "workout page", Toast.LENGTH_SHORT).show();
-            }
-        });
 
-        community.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(HomeActivity.this, "community page", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        geraeteanweisung.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(HomeActivity.this, "geraeteanweisung page", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        nfc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(HomeActivity.this, "nfc page", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        vertragsdaten.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(HomeActivity.this, "vertragsdaten page", Toast.LENGTH_SHORT).show();
-
-            }
-        });
 
 
 
