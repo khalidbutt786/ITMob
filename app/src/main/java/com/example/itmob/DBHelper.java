@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DBNAME = "Login.db";
@@ -27,6 +30,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (2501, '2022-06-23', '2024-06-23', '39.99','Khalid','Butt','06-05-1997', 'khalidbutt@live.de' );");
         db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (2234, '2021-03-06', '2024-03-06', '24.00','Markus','Ruehl','23-08-1978', 'ruehl@gmail.com' );");
         db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (7866, '2020-02-05', '2024-02-05', '19.99','Ronnie','Coleman','02-10-1988', 'coleman@ronnie.de' );");
+
 
 
     }
@@ -94,5 +98,38 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         String query = "DROP TABLE " + table;
         MyDB.execSQL(query);
+    }
+
+    public ArrayList<String> getUserData(String searchEmail){
+
+        ArrayList<String> userData = new ArrayList<>();
+
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("Select * from VERTRAG where Email = ?", new String[]{searchEmail});
+
+        if (cursor.moveToFirst()){
+
+            String startLaufzeit = cursor.getString(1);
+            String endLaufzeit = cursor.getString(2);
+            String preis = cursor.getString(3);
+            String vorname = cursor.getString(4);
+            String nachname = cursor.getString(5);
+            String geburtsdatum = cursor.getString(6);
+            String email = cursor.getString(7);
+
+            userData.add(startLaufzeit);
+            userData.add(endLaufzeit);
+            userData.add(preis);
+            userData.add(vorname);
+            userData.add(nachname);
+            userData.add(geburtsdatum);
+            userData.add(email);
+
+        }
+        cursor.close();
+        return userData;
+
+
+
     }
 }

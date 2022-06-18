@@ -21,6 +21,7 @@ public class HomeActivity extends AppCompatActivity {
     Community communityFragment = new Community();
     Workout workoutFragment = new Workout();
 
+    String username;
 
 
     @Override
@@ -28,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        String username = getIntent().getStringExtra("Email");
+        username = getIntent().getStringExtra("Email");
 
         bottomNavigationView = findViewById(R.id.bottomView);
         bottomNavigationView.setSelectedItemId(R.id.nfc);
@@ -41,19 +42,19 @@ public class HomeActivity extends AppCompatActivity {
                 switch (item.getItemId()){
 
                     case R.id.nfc:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, nfcFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, nfcFragment, "FRGNFC").commit();
                         return true;
                     case R.id.profil:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, profilFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, profilFragment, "FRGPROFIL").detach(profilFragment).attach(profilFragment).commit();
                         return true;
                     case R.id.community:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, communityFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, communityFragment, "FRGCOMMUNITY").commit();
                         return true;
                     case R.id.workout:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, workoutFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, workoutFragment, "FRGWORKOUT").commit();
                         return true;
                     case R.id.qrcamera:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, qrCameraFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, qrCameraFragment, "FRGCAMERA").commit();
                         return true;
                 }
 
@@ -68,4 +69,9 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
+
+    public String getUsername(){
+        return username;
+    }
+
 }

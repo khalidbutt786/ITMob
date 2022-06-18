@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new DBHelper(this);
 
 
+
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
