@@ -45,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, nfcFragment, "FRGNFC").commit();
                         return true;
                     case R.id.profil:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, profilFragment, "FRGPROFIL").detach(profilFragment).attach(profilFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, profilFragment, "FRGPROFIL").commit();
                         return true;
                     case R.id.community:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, communityFragment, "FRGCOMMUNITY").commit();
