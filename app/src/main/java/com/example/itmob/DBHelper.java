@@ -27,11 +27,12 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE USER(userID INT PRIMARY KEY, Email TEXT, Passwort TEXT, VertragID INT, FOREIGN KEY(VertragID) REFERENCES VERTRAG(vertragid), FOREIGN KEY(Email) REFERENCES VERTRAG(Email))");
         db.execSQL("CREATE TABLE USER_UEBUNG(user_uebungID INT PRIMARY KEY, USERID INT, UEBUNGID INT, FOREIGN KEY(USERID) REFERENCES USER(userID), FOREIGN KEY(UEBUNGID) REFERENCES UEBUNG(uebungID))");
 
+
+
+
         db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (2501, '2022-06-23', '2024-06-23', '39.99','Khalid','Butt','06-05-1997', 'khalidbutt@live.de' );");
         db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (2234, '2021-03-06', '2024-03-06', '24.00','Markus','Ruehl','23-08-1978', 'ruehl@gmail.com' );");
         db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (7866, '2020-02-05', '2024-02-05', '19.99','Ronnie','Coleman','02-10-1988', 'coleman@ronnie.de' );");
-
-
 
     }
 

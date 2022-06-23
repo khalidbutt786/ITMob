@@ -8,7 +8,7 @@
 
     <item
         android:id="@+id/community"
-        android:title="Community"
+        android:title="Kurse"
         android:icon="@drawable/ic_baseline_group_work_24"/>
     <item
         android:id="@+id/workout"
@@ -17,7 +17,7 @@
 
     <item
         android:id="@+id/nfc"
-        android:title="NFC"
+        android:title="Home"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_nfc_24"/>
 
@@ -30,7 +30,7 @@
 
     <item
         android:id="@+id/profil"
-        android:title="Profil"
+        android:title="Vertrag"
         android:icon="@drawable/ic_baseline_person_24"/>
 
 </menu>
