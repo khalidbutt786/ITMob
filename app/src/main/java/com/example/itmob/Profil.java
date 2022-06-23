@@ -1,19 +1,29 @@
 package com.example.itmob;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,8 +48,18 @@ public class Profil extends Fragment {
     private String nachname;
     private String geburtsdatum;
     private String email;
+    private String vertragsnummer;
+
+
+    private Executor executor;
+    private BiometricPrompt biometricPrompt;
+    private BiometricPrompt.PromptInfo promptInfo;
+
+    Boolean kuendigungbereitsvorgemerkt = false;
 
     TextView textView_name, textView_email, textView_geburtsdatum, textView_startlaufzeit, textView_endlaufzeit, textView_preis;
+
+    Button kuendigung, ausloggen;
 
     public Profil() {
         // Required empty public constructor
@@ -94,6 +114,19 @@ public class Profil extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_profil, container, false);
 
+        kuendigung = view.findViewById(R.id.kuendigungVormerken);
+
+        ausloggen = view.findViewById(R.id.abmelden);
+
+        ausloggen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        showPopupMessage();
 
         HomeActivity activity = (HomeActivity) getActivity();
         String email = activity.getUsername();
@@ -107,6 +140,7 @@ public class Profil extends Fragment {
         nachname = userdata.get(4);
         geburtsdatum = userdata.get(5);
         email = userdata.get(6);
+        vertragsnummer = userdata.get(7);
 
         textView_name = view.findViewById(R.id.name_label);
         textView_email = view.findViewById(R.id.email_label);
@@ -122,7 +156,109 @@ public class Profil extends Fragment {
         textView_geburtsdatum.setText(geburtsdatum);
         textView_email.setText(email);
 
+        if(db.getKuendigungsStatus(vertragsnummer)){
+            kuendigung.setText("Kündigung bereits vorgemerkt");
+            kuendigung.setOnClickListener(null);
+        }
+
+
         return view;
+    }
+
+    private void showPopupMessage() {
+        kuendigung.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final AlertDialog dialog = new AlertDialog.Builder(view.getContext())
+                        .setTitle("Kündigung vormerken")
+                        .setMessage("Falls Sie planen Ihre Mitgliedschaft zu kündigen, können Sie Ihre Kündigung über unsere App vormerken. \n\nKlicken Sie auf Weiter um die Kündigung vorzumerken.")
+                        .setPositiveButton("Weiter", null)
+                        .setNegativeButton("Abbrechen", null)
+                        .show();
+
+                Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                positiveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        executor = ContextCompat.getMainExecutor(view.getContext());
+                        biometricPrompt = new BiometricPrompt((FragmentActivity) view.getContext(),
+                                executor, new BiometricPrompt.AuthenticationCallback() {
+                            @Override
+                            public void onAuthenticationError(int errorCode,
+                                                              @NonNull CharSequence errString) {
+                                super.onAuthenticationError(errorCode, errString);
+                                Toast.makeText(view.getContext(),
+                                                "Authentifizierung fehlgeschlagen: " + errString, Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+
+                            @Override
+                            public void onAuthenticationSucceeded(
+                                    @NonNull BiometricPrompt.AuthenticationResult result) {
+                                super.onAuthenticationSucceeded(result);
+                                Toast.makeText(view.getContext(),
+                                        "Authentifizierung erfolgreich!", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+
+                                zeigeBestaetigungsPopUp(view);
+
+                            }
+
+                            @Override
+                            public void onAuthenticationFailed() {
+                                super.onAuthenticationFailed();
+                                Toast.makeText(view.getContext(), "Authentifizierung fehlgeschlagen",
+                                                Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+                        });
+
+                        promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                                .setTitle("Fingerabrduck verwenden")
+                                .setSubtitle("Verifikation wird benötigt um die Kündigung vorzumerken.")
+                                .setNegativeButtonText("PIN-Eingabe")
+                                .build();
+
+                        // Prompt appears when user clicks "Log in".
+                        // Consider integrating with the keystore to unlock cryptographic operations,
+                        // if needed by your app.
+
+                            biometricPrompt.authenticate(promptInfo);
+
+
+
+                    }
+                });
+
+            }
+        });
+    }
+
+    private void zeigeBestaetigungsPopUp(View view) {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(view.getContext());
+
+        builder1.setMessage("Hallo "+vorname+ "\n\nWir haben deine Vormerkung erhalten und melden uns innerhalb der nächsten 2-3 Tage postialisch bei dir. \n\n\nDein Fitnessstudio \nFutureFitness");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Alles Klar!",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+        DBHelper db = new DBHelper(this.getContext());
+        db.updateKuendigungsstatus(vertragsnummer);
+
+        boolean status = db.getKuendigungsStatus(vertragsnummer);
+        kuendigungbereitsvorgemerkt = status;
+
+
     }
 
 

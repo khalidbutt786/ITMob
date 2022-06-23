@@ -22,7 +22,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE VERTRAG(vertragID INT PRIMARY KEY, StartlaufZeit TEXT, EndLaufZeit Text, Preis TEXT, Vorname TEXT, Nachname TEXT, Geburtsdatum TEXT, Email TEXT)");
+        db.execSQL("CREATE TABLE VERTRAG(vertragID INT PRIMARY KEY, StartlaufZeit TEXT, EndLaufZeit Text, Preis TEXT, Vorname TEXT, Nachname TEXT, Geburtsdatum TEXT, Email TEXT, KuendigungVorgemerkt INT)");
         db.execSQL("CREATE TABLE UEBUNG(uebungID INT PRIMARY KEY, Name TEXT, Muskelgruppe Text, Wiederholungen TEXT, Saetze TEXT)");
         db.execSQL("CREATE TABLE USER(userID INT PRIMARY KEY, Email TEXT, Passwort TEXT, VertragID INT, FOREIGN KEY(VertragID) REFERENCES VERTRAG(vertragid), FOREIGN KEY(Email) REFERENCES VERTRAG(Email))");
         db.execSQL("CREATE TABLE USER_UEBUNG(user_uebungID INT PRIMARY KEY, USERID INT, UEBUNGID INT, FOREIGN KEY(USERID) REFERENCES USER(userID), FOREIGN KEY(UEBUNGID) REFERENCES UEBUNG(uebungID))");
@@ -30,9 +30,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 
-        db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (2501, '2022-06-23', '2024-06-23', '39.99','Khalid','Butt','06-05-1997', 'khalidbutt@live.de' );");
-        db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (2234, '2021-03-06', '2024-03-06', '24.00','Markus','Ruehl','23-08-1978', 'ruehl@gmail.com' );");
-        db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (7866, '2020-02-05', '2024-02-05', '19.99','Ronnie','Coleman','02-10-1988', 'coleman@ronnie.de' );");
+        db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (1, '2022-06-23', '2024-06-23', '39.99','Khalid','Butt','06-05-1997', 'kb' );");
+        db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (2, '2021-03-06', '2024-03-06', '24.00','Markus','Ruehl','23-08-1978', 'mr' );");
+        db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (3, '2020-02-05', '2024-02-05', '19.99','Ronnie','Coleman','02-10-1988', 'rc' );");
 
     }
 
@@ -57,6 +57,37 @@ public class DBHelper extends SQLiteOpenHelper {
         if (result == -1) return false;
         else
             return true;
+    }
+
+    public boolean updateKuendigungsstatus(String vertragsID){
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        myDB.execSQL("UPDATE VERTRAG SET KuendigungVorgemerkt=1 WHERE vertragID='"+vertragsID+"'");
+
+        return false;
+    }
+
+    public boolean getKuendigungsStatus(String vertragsID){
+
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        Cursor cursor = myDB.rawQuery("Select * from VERTRAG where vertragID= ?", new String[]{vertragsID});
+
+        if (cursor.moveToFirst()){
+
+            int status = cursor.getInt(8);
+
+            if(status==0){
+                return false;
+            }
+            else {
+                return true;
+            }
+
+        }
+        return false;
+
     }
 
     public Boolean checkusername(String username) {
@@ -101,6 +132,8 @@ public class DBHelper extends SQLiteOpenHelper {
         MyDB.execSQL(query);
     }
 
+
+
     public ArrayList<String> getUserData(String searchEmail){
 
         ArrayList<String> userData = new ArrayList<>();
@@ -117,6 +150,7 @@ public class DBHelper extends SQLiteOpenHelper {
             String nachname = cursor.getString(5);
             String geburtsdatum = cursor.getString(6);
             String email = cursor.getString(7);
+            String vertragsnummer = cursor.getString(0);
 
             userData.add(startLaufzeit);
             userData.add(endLaufzeit);
@@ -125,12 +159,11 @@ public class DBHelper extends SQLiteOpenHelper {
             userData.add(nachname);
             userData.add(geburtsdatum);
             userData.add(email);
+            userData.add(vertragsnummer);
 
         }
         cursor.close();
         return userData;
-
-
-
     }
+
 }
