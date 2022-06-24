@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".NFC">
 
 
     <TextView
+        android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="NFC"
@@ -14,5 +16,14 @@
         android:layout_centerInParent="true"/>
 
 
+    <com.maxpilotto.creditcardview.CreditCardView
+        android:id="@+id/card"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        app:cardExpiry="1234"
+        app:cardHolder="John Doe"
+        app:cardNumber="5201284799337668"
+        app:cardHolderLabel="Vertragsinhaber"
+        app:cardExpiryLabel="Gültig bis"/>
 
 </RelativeLayout>

@@ -90,21 +90,8 @@ public class Profil extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
-
-
-
     }
 
-    private void refreshFragment() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            getFragmentManager().beginTransaction().detach(this).commitNow();
-            getFragmentManager().beginTransaction().attach(this).commitNow();
-        } else {
-            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
