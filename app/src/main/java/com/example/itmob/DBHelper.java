@@ -45,6 +45,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+
+
     public Boolean insertDataUser(String email, String password, int vertragsID) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -131,8 +133,6 @@ public class DBHelper extends SQLiteOpenHelper {
         String query = "DROP TABLE " + table;
         MyDB.execSQL(query);
     }
-
-
 
     public ArrayList<String> getUserData(String searchEmail){
 

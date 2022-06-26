@@ -10,13 +10,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 
 
 public class NFC extends Fragment {
     NfcAdapter nfcAdapter;
-    TextView textView;
+    TextView mitgliedsnummer,vertragsinhaber, gueltig_bis, auslastung;
 
+    String email;
+    private String endLaufzeit;
+    private String vorname;
+    private String nachname;
+    private String vertragsnummer;
     int count = 1;
+
+
 
     public NFC() {
 
@@ -33,6 +41,9 @@ public class NFC extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        HomeActivity activity = (HomeActivity) getActivity();
+        String email = activity.getUsername();
+
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
@@ -42,7 +53,18 @@ public class NFC extends Fragment {
         super.onStart();
 
         View view = getView();
+        gueltig_bis = view.findViewById(R.id.gueltig);
+        vertragsinhaber = view.findViewById(R.id.vertragsinhaber);
+        mitgliedsnummer = view.findViewById(R.id.mitgliedsnr_lbl2);
+        auslastung = view.findViewById(R.id.anzahlMitglieder);
 
+        DBHelper db = new DBHelper(this.getContext());
+        ArrayList<String> userdata = db.getUserData(email);
+        endLaufzeit = userdata.get(1);
+        vorname = userdata.get(3);
+        nachname = userdata.get(4);
+        email = userdata.get(6);
+        vertragsnummer = userdata.get(7);
     }
 
     @Override
