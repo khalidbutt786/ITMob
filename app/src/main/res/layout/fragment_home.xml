@@ -1,10 +1,18 @@
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NFC">
+
+<androidx.cardview.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="4dp"
-    card_view:cardElevation="4dp"
-    card_view:cardUseCompatPadding="true">
+    app:cardCornerRadius="4dp"
+    android:id="@+id/card"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -82,22 +90,22 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="134dp"
-            android:layout_marginTop="29dp"
-            android:text="Mitgliedskarte"
+            android:layout_marginStart="99dp"
+            android:gravity="center"
+            android:layout_marginTop="37dp"
+            android:text="Digitale Mitgliedskarte"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="87dp"
+            android:layout_height="85dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="-14dp"
-            android:layout_marginTop="-8dp"
+            android:layout_marginStart="-3dp"
+            android:layout_marginTop="-7dp"
+            android:rotation="90"
             android:src="@drawable/ic_launcher_foreground" />
 
         <TextView
@@ -106,10 +114,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="27dp"
-            android:layout_marginBottom="137dp"
-            android:text="NFC"
-            android:textColor="@color/white" />
+            android:layout_marginStart="7dp"
+            android:layout_marginBottom="142dp"
+            android:text="Gerät ans \nLesegerät halten"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -123,4 +133,41 @@
 
 
     </RelativeLayout>
+
 </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/card"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="115dp"
+        android:layout_marginTop="61dp"
+        android:text="Aktuelle Auslastung"
+        android:id="@+id/auslastung_lbl"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/anzahlMitglieder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/auslastung_lbl"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="18dp"
+        android:gravity="center"
+        android:text="32"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/auswertung_Auslastung"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/anzahlMitglieder"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp"
+        android:gravity="center"
+        android:text="Überdurschnittlich viel los gerade" />
+
+
+</RelativeLayout>
