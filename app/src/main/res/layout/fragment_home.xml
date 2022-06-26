@@ -1,29 +1,126 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".NFC">
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="4dp"
+    card_view:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:background="@color/purple_200">
 
 
-    <TextView
-        android:id="@+id/label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="NFC"
-        android:textSize="26dp"
-        android:layout_centerInParent="true"/>
+        <TextView
+            android:id="@+id/gueltig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="224dp"
+            android:layout_marginBottom="50dp"
+            android:text="22.06.2024"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="101dp"
+            android:layout_marginTop="102dp"
+            android:text="Vertragsinhaber:"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/mitgliedsnr_lbl3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="101dp"
+            android:layout_marginBottom="78dp"
+            android:text="Mitgliedsnummer:"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/mitgliedsnr_lbl2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="224dp"
+            android:layout_marginBottom="77dp"
+            android:text="FF-12445"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/vertragsinhaber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="223dp"
+            android:layout_marginTop="102dp"
+            android:text="KHALID BUTT"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/gueltig_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="100dp"
+            android:layout_marginBottom="52dp"
+            android:text="Gültig bis:"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="134dp"
+            android:layout_marginTop="29dp"
+            android:text="Mitgliedskarte"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="-14dp"
+            android:layout_marginTop="-8dp"
+            android:src="@drawable/ic_launcher_foreground" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginBottom="137dp"
+            android:text="NFC"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="56dp"
+            android:layout_height="48dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:src="@android:drawable/star_big_on" />
 
 
-    <com.maxpilotto.creditcardview.CreditCardView
-        android:id="@+id/card"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        app:cardExpiry="1234"
-        app:cardHolder="John Doe"
-        app:cardNumber="5201284799337668"
-        app:cardHolderLabel="Vertragsinhaber"
-        app:cardExpiryLabel="Gültig bis"/>
-
-</RelativeLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

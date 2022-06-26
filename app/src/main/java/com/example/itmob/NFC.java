@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.maxpilotto.creditcardview.CreditCardView;
 
 
 public class NFC extends Fragment {
@@ -18,8 +17,6 @@ public class NFC extends Fragment {
     TextView textView;
 
     int count = 1;
-
-    CreditCardView creditCardView;
 
     public NFC() {
 
@@ -46,22 +43,11 @@ public class NFC extends Fragment {
 
         View view = getView();
 
-        creditCardView = view.findViewById(R.id.card);
-        creditCardView.setHolder("KHALID");
-
-
-        textView = view.findViewById(R.id.label);
-        String textview = (String) textView.getText();
-        textView.setText("test");
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        textView.setText("test"+count);
-
-        count++;
 
     }
 }
