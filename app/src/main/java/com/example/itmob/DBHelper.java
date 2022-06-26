@@ -26,6 +26,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE UEBUNG(uebungID INT PRIMARY KEY, Name TEXT, Muskelgruppe Text, Wiederholungen TEXT, Saetze TEXT)");
         db.execSQL("CREATE TABLE USER(userID INT PRIMARY KEY, Email TEXT, Passwort TEXT, VertragID INT, FOREIGN KEY(VertragID) REFERENCES VERTRAG(vertragid), FOREIGN KEY(Email) REFERENCES VERTRAG(Email))");
         db.execSQL("CREATE TABLE USER_UEBUNG(user_uebungID INT PRIMARY KEY, USERID INT, UEBUNGID INT, FOREIGN KEY(USERID) REFERENCES USER(userID), FOREIGN KEY(UEBUNGID) REFERENCES UEBUNG(uebungID))");
+        db.execSQL("CREATE TABLE ACTIVEUSER(userID INT PRIMARY KEY)");
 
 
 
@@ -33,6 +34,16 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (1, '2022-06-23', '2024-06-23', '39.99','Khalid','Butt','06-05-1997', 'kb' );");
         db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (2, '2021-03-06', '2024-03-06', '24.00','Markus','Ruehl','23-08-1978', 'mr' );");
         db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (3, '2020-02-05', '2024-02-05', '19.99','Ronnie','Coleman','02-10-1988', 'rc' );");
+
+        db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (1);");
+        db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (2);");
+        db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (3);");
+        db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (4);");
+        db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (5);");
+        db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (6);");
+        db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (7);");
+        db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (8);");
+        db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (9);");
 
     }
 
@@ -45,6 +56,22 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+
+    public int getActiveUser(){
+        int count = 0;
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        Cursor cursor = myDB.rawQuery("Select Count(*) from ACTIVEUSER", new String[]{});
+
+        if (cursor.moveToFirst()) {
+
+            count = cursor.getInt(0);
+            return count;
+        }
+
+        return count;
+
+    }
 
 
     public Boolean insertDataUser(String email, String password, int vertragsID) {
