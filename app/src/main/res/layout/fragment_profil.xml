@@ -197,15 +197,11 @@
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/vertragAlsPdf"
-                android:text="Vertrag herunterladen als pdf"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+
 
             <Button
                 android:id="@+id/kuendigungVormerken"
+                android:layout_marginTop="20dp"
                 android:text="Kündigung vormerken"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -213,6 +209,12 @@
             <Button
                 android:id="@+id/abmelden"
                 android:text="Vom Konto abmelden"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/deleteAccount"
+                android:text="Profil unwiderruflich löschen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

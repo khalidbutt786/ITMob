@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.itmob">
 
-     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="false"/>
-    
+        android:required="false" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -20,12 +20,14 @@
         android:theme="@style/Theme.ITMob"
         tools:targetApi="31">
         <activity
+            android:name=".PasswortVergessen"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true">

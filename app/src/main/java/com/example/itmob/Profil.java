@@ -59,7 +59,7 @@ public class Profil extends Fragment {
 
     TextView textView_name, textView_email, textView_geburtsdatum, textView_startlaufzeit, textView_endlaufzeit, textView_preis;
 
-    Button kuendigung, ausloggen;
+    Button kuendigung, ausloggen, deleteAccount ;
 
     public Profil() {
         // Required empty public constructor
@@ -105,20 +105,102 @@ public class Profil extends Fragment {
 
         ausloggen = view.findViewById(R.id.abmelden);
 
+        deleteAccount = view.findViewById(R.id.deleteAccount);
+
         ausloggen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
+
             }
         });
 
+
+
         showPopupMessage();
+
 
         HomeActivity activity = (HomeActivity) getActivity();
         String email = activity.getUsername();
 
         DBHelper db = new DBHelper(this.getContext());
+
+        String finalEmail = email;
+
+        deleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final AlertDialog dialog = new AlertDialog.Builder(view.getContext())
+                        .setTitle("Konto löschen?")
+                        .setMessage("Falls Sie Ihr Konto löschen möchten, \n\nklicken Sie auf Weiter um die Löschung durchzuführen.\n\nSie können sich jederzeit wieder registrieren.")
+                        .setPositiveButton("Weiter", null)
+                        .setNegativeButton("Abbrechen", null)
+                        .show();
+
+                Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                positiveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        executor = ContextCompat.getMainExecutor(view.getContext());
+                        biometricPrompt = new BiometricPrompt((FragmentActivity) view.getContext(),
+                                executor, new BiometricPrompt.AuthenticationCallback() {
+                            @Override
+                            public void onAuthenticationError(int errorCode,
+                                                              @NonNull CharSequence errString) {
+                                super.onAuthenticationError(errorCode, errString);
+                                Toast.makeText(view.getContext(),
+                                                "Authentifizierung fehlgeschlagen: " + errString, Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+
+                            @Override
+                            public void onAuthenticationSucceeded(
+                                    @NonNull BiometricPrompt.AuthenticationResult result) {
+                                super.onAuthenticationSucceeded(result);
+                                dialog.dismiss();
+
+                                db.deleteUser(finalEmail);
+                                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                                startActivity(intent);
+                                Toast.makeText(view.getContext(),
+                                        "Konto wurde gelöscht!", Toast.LENGTH_SHORT).show();
+                                activity.finish();
+                            }
+
+                            @Override
+                            public void onAuthenticationFailed() {
+                                super.onAuthenticationFailed();
+                                Toast.makeText(view.getContext(), "Authentifizierung fehlgeschlagen",
+                                                Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+                        });
+
+                        promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                                .setTitle("Fingerabrduck verwenden")
+                                .setSubtitle("Verifikation wird benötigt um die Konto zu löschen.")
+                                .setNegativeButtonText("PIN-Eingabe")
+                                .build();
+
+                        // Prompt appears when user clicks "Log in".
+                        // Consider integrating with the keystore to unlock cryptographic operations,
+                        // if needed by your app.
+
+                        biometricPrompt.authenticate(promptInfo);
+
+
+
+                    }
+                });
+
+
+            }
+        });
+
+
         ArrayList<String> userdata = db.getUserData(email);
         startLaufzeit = userdata.get(0);
         endLaufzeit = userdata.get(1);
@@ -151,6 +233,9 @@ public class Profil extends Fragment {
 
         return view;
     }
+
+
+
 
     private void showPopupMessage() {
         kuendigung.setOnClickListener(new View.OnClickListener() {
@@ -188,8 +273,8 @@ public class Profil extends Fragment {
                                 Toast.makeText(view.getContext(),
                                         "Authentifizierung erfolgreich!", Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
-
                                 zeigeBestaetigungsPopUp(view);
+
 
                             }
 

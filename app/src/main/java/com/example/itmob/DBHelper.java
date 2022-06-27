@@ -56,6 +56,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    public void deleteUser(String email){
+
+
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        myDB.execSQL("DELETE FROM USER WHERE Email LIKE '"+email+"'");
+
+
+    }
+
 
     public int getActiveUser(){
         int count = 0;

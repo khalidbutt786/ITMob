@@ -25,10 +25,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        email = (EditText) findViewById(R.id.email);
-        password = (EditText) findViewById(R.id.password1);
-        btnlogin = (Button) findViewById(R.id.btnsignin1);
-        registerLabel = findViewById(R.id.register_label);
+        email = (EditText) findViewById(R.id.inputUsername);
+        password = (EditText) findViewById(R.id.inputPassword);
+        btnlogin = (Button) findViewById(R.id.button4);
+        registerLabel = findViewById(R.id.textView6);
 
 
 
@@ -50,6 +50,9 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent  = new Intent(getApplicationContext(), HomeActivity.class);
                         intent.putExtra("Email", userEmail);
                         startActivity(intent);
+                        finish();
+
+
                     }else{
                         Toast.makeText(LoginActivity.this, "Falsche Anmeldedaten", Toast.LENGTH_SHORT).show();
                     }
@@ -62,6 +65,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(intent);
+                finish();
+
             }
         });
     }

@@ -3,16 +3,19 @@ package com.example.itmob;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText email, password, repassword, vertragsID;
-    Button signup, signin;
+    Button signup;
+    TextView signin;
 
     DBHelper dbHelper;
 
@@ -21,13 +24,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        email = (EditText) findViewById(R.id.email);
-        vertragsID = (EditText) findViewById(R.id.vertragsID);
 
-        password = (EditText) findViewById(R.id.password);
-        repassword = (EditText) findViewById(R.id.repassword);
-        signup = (Button) findViewById(R.id.btnsignup);
-        signin = (Button) findViewById(R.id.btnsignin);
+        email = (EditText) findViewById(R.id.inputUsername);
+        vertragsID = (EditText) findViewById(R.id.mitgliedsnrInput);
+
+        password = (EditText) findViewById(R.id.inputPassword);
+        repassword = (EditText) findViewById(R.id.inputPasswordRetype);
+        signup = (Button) findViewById(R.id.button4);
+        signin = (TextView) findViewById(R.id.textView6);
         dbHelper = new DBHelper(this);
 
 
@@ -56,17 +60,20 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "Registrierung erfolgreich", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                                 startActivity(intent);
+                                finish();
                             }else{
                                 Toast.makeText(MainActivity.this, "Registrierung fehlgeschlagen", Toast.LENGTH_SHORT).show();
                             }
                         }
                         else{
-                            Toast.makeText(MainActivity.this, "Angegebenen Daten konnten keinem Vertrag zugeordnet werden", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Angegebenen Daten konnten keinem Vertrag zugeordnet werden oder Vertrag hat bereits ein Konto", Toast.LENGTH_SHORT).show();
                         }
                     }else{
                         Toast.makeText(MainActivity.this, "Passwörter nicht identisch", Toast.LENGTH_SHORT).show();
                     }
                 } }
+
+
         });
 
         signin.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
+                finish();
 
             }
         });

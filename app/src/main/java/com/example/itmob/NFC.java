@@ -25,7 +25,6 @@ public class NFC extends Fragment {
     int count = 1;
 
 
-
     public NFC() {
 
 
@@ -50,6 +49,8 @@ public class NFC extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        float scale = this.getContext().getResources().getDisplayMetrics().density;
 
         HomeActivity activity = (HomeActivity) getActivity();
         String emailuser = activity.getUsername();
