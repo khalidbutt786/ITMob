@@ -5,18 +5,22 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DBNAME = "Login.db";
+    private Context dbContext;
 
     public DBHelper(@Nullable Context context) {
         super(context, DBNAME, null, 1);
+        dbContext = context;
     }
 
     @Override
@@ -30,6 +34,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 
+        // table for courses
+        db.execSQL("CREATE TABLE courses_table(courseid INTEGER PRIMARY KEY AUTOINCREMENT , courseName TEXT, courseTrainer TEXT, courseDate TEXT, courseStartTime TEXT , courseTimeDuration TEXT)");
+        // creating table for participants of a particular course
+        db.execSQL("CREATE TABLE PARTICIPANTS(courseId INTEGER  , vertragEmail TEXT , pID INTEGER PRIMARY KEY)");
 
         db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (1, '2022-06-23', '2024-06-23', '39.99','Khalid','Butt','06-05-1997', 'kb' );");
         db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (2, '2021-03-06', '2024-03-06', '24.00','Markus','Ruehl','23-08-1978', 'mr' );");
@@ -44,6 +52,18 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (7);");
         db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (8);");
         db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (9);");
+
+        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration ) VALUES (999, 'SLIM FIT', 'ISRAR ALI', '30-06-2022','8:15','45 minutes' );");
+        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration ) VALUES (510, 'BODY Fit', 'AHMAD', '30-06-2022','9:15','50 minutes' );");
+        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration ) VALUES (515, 'Slim Fit', 'Adnan', '28-06-2022','9:15','50 minutes' );");
+        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration ) VALUES (495, 'Slim Fit', 'Zeeshan', '01-07-2022','10:15','50 minutes' );");
+        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration ) VALUES (395, 'Body Fit', 'Ajmal', '02-07-2022','8:15','40 minutes' );");
+
+
+
+
+
+
 
     }
 
@@ -203,5 +223,191 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         return userData;
     }
+
+
+    public List<ModelCourses> getAllCourses(){
+
+        List<ModelCourses> coursesList = new ArrayList<>();
+
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("Select * from courses_table",null);
+
+
+        if (cursor.moveToFirst()){
+
+            do {
+
+                String courseId = cursor.getString(0);
+                String courseName = cursor.getString(1);
+                String courseTrainer = cursor.getString(2);
+                String courseDate = cursor.getString(3);
+                String courseStartTime = cursor.getString(4);
+                String courseTimeDuration = cursor.getString(5);
+
+
+                coursesList.add(new ModelCourses(courseId,courseName , courseTrainer , courseDate , courseStartTime ,courseTimeDuration));
+
+
+
+
+            }while (cursor.moveToNext());
+
+
+        }
+        cursor.close();
+
+        return coursesList ;
+
+    }
+
+
+    public List<ModelCourses> getCoursesByDate(String date){
+
+        List<ModelCourses> coursesList = new ArrayList<>();
+
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("Select * from courses_table WHERE courseDate=?",new String[]{date});
+
+        if (cursor.moveToFirst()){
+
+            do {
+
+                String courseId = cursor.getString(0);
+                String courseName = cursor.getString(1);
+                String courseTrainer = cursor.getString(2);
+                String courseDate = cursor.getString(3);
+                String courseStartTime = cursor.getString(4);
+                String courseTimeDuration = cursor.getString(5);
+
+
+                coursesList.add(new ModelCourses(courseId,courseName , courseTrainer , courseDate , courseStartTime ,courseTimeDuration));
+
+
+
+
+            }while (cursor.moveToNext());
+
+
+        }
+        cursor.close();
+
+        return coursesList ;
+
+    }
+
+    public boolean insertParticipant(int courseId , String email){
+
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("courseId", courseId);
+        contentValues.put("vertragEmail", email);
+
+
+        long result = MyDB.insert("PARTICIPANTS", null, contentValues);
+        if (result == -1)
+        {
+            return false;
+        }
+        else{
+            Toast.makeText(dbContext, "Congrats You've participated", Toast.LENGTH_SHORT).show();;
+            return  true ;
+        }
+
+
+
+    }
+
+    // method to check If user has already participated
+
+
+    public boolean checkIfParticipated(String courseId , String email){
+
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+//        String query = "SELECT * FROM PARTICIPANTS WHERE courseId =?";
+//        MyDB.execSQL(query,new Integer[]{courseId});
+
+        Cursor cursor = MyDB.rawQuery("Select * from PARTICIPANTS where courseId = ? AND vertragEmail = ?", new String[]{courseId,email});
+        if (cursor.getCount() > 0)
+            return true;
+        else
+            return false;
+
+    }
+
+
+    // Unrolling user from the course
+
+
+    public boolean unRollUserFromCourse(String courseId){
+
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("DELETE FROM PARTICIPANTS WHERE courseId = ?",new String[]{courseId});
+
+        if (cursor.getCount() > 0)
+            return true;
+        else
+            return false;
+
+    }
+
+
+
+    // Get All Participants of a Course
+
+    public List<String> gettingAllParticipants(String courseId){
+
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("SELECT vertragEmail FROM PARTICIPANTS WHERE courseId =?",new String[]{courseId});
+
+
+        List<String> list = new ArrayList<>();
+
+
+        if (cursor.moveToFirst()){
+
+            do {
+
+                String email = cursor.getString(0);
+                list.add(email);
+
+
+            }while (cursor.moveToNext());
+
+
+        }
+        cursor.close();
+
+        return list;
+    }
+
+
+    // To Check Participants' names
+
+
+    public String getParticipantsName(String searchEmail){
+
+        ArrayList<String> namesList = new ArrayList<>();
+
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("Select * from VERTRAG where Email = ?", new String[]{searchEmail});
+
+        if (cursor.moveToFirst()){
+
+
+            String vorname = cursor.getString(4);
+            String nachname = cursor.getString(5);
+
+
+            namesList.add(vorname+" "+nachname);
+
+
+
+        }
+        cursor.close();
+        return namesList.get(0);
+
+    }
+
 
 }

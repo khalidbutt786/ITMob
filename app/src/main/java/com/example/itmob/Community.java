@@ -1,12 +1,28 @@
 package com.example.itmob;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import devs.mulham.horizontalcalendar.HorizontalCalendar;
+import devs.mulham.horizontalcalendar.HorizontalCalendarView;
+import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +30,11 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class Community extends Fragment {
+
+    Date date ;
+    String str_date;
+    TextView tvDate ;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,5 +81,124 @@ public class Community extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_community, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        super.onViewCreated(view, savedInstanceState);
+
+
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_courses);
+        tvDate = view.findViewById(R.id.date_CoursesFrag);
+
+        HomeActivity activity = (HomeActivity) getActivity();
+        String email = activity.getUsername();
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        DBHelper dbHelper = new DBHelper(getContext());
+
+
+        // getting today's Date
+
+        date = new Date();
+        SimpleDateFormat inFormat = new SimpleDateFormat("dd-MM-yyyy");
+        str_date = inFormat.format(date);
+
+        tvDate.setText("Heute "+str_date);
+        int day = date.getDay();    // getting Day
+
+        List<ModelCourses> list = dbHelper.getCoursesByDate(str_date);    // getting courses of particular Date
+
+
+        recyclerView.setAdapter(new AdapterCourses(list,getContext(), new OnClick() {
+
+            // Interface implemented here to get the click listener on the course
+
+
+            @Override
+            public void onClick(int position, ModelCourses modelCourses) {
+
+                Toast.makeText(getContext(), ""+position, Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getContext() , ParticipateActivity.class);
+                intent.putExtra("modelObject", (Serializable) modelCourses);
+                intent.putExtra("day",day);
+                intent.putExtra("email",email);
+                startActivity(intent);
+            }
+        }));
+
+
+
+
+
+        // setting calendar to show previous and next dates i.e showing 3 months here
+
+
+
+        Calendar startDate = Calendar.getInstance();
+        startDate.add(Calendar.MONTH, -1);    // starting date previous month
+
+        /* ends after 1 month from now */
+        Calendar endDate = Calendar.getInstance();
+        endDate.add(Calendar.MONTH, 1);         // ending date of next month
+
+
+
+        // Initializing horizontal Calendar
+        // Used Library by Mulham-Raee
+
+        HorizontalCalendar horizontalCalendar = new HorizontalCalendar.Builder(view, R.id.calendarView)
+                .range(startDate, endDate)
+                .datesNumberOnScreen(5)
+                .build();
+        horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
+            @Override
+            public void onDateSelected(Calendar date, int position) {
+
+                Date myDate =  date.getTime();
+                SimpleDateFormat inFormat = new SimpleDateFormat("dd-MM-yyyy");
+                String bc = inFormat.format(myDate);
+                int day = myDate.getDay();
+
+                List<ModelCourses> list = dbHelper.getCoursesByDate(bc);             // getting courses by date
+
+
+                recyclerView.setAdapter(new AdapterCourses(list,getContext(), new OnClick() {
+                    @Override
+                    public void onClick(int position, ModelCourses modelCourses) {
+
+                        Intent intent = new Intent(getContext() , ParticipateActivity.class);
+                        intent.putExtra("modelObject", (Serializable) modelCourses);
+                        intent.putExtra("day",day);
+                        intent.putExtra("email",email);
+                        startActivity(intent);
+
+                    }
+                }));
+
+
+
+
+
+                tvDate.setText("Heute"+bc);
+
+            }
+
+            @Override
+            public void onCalendarScroll(HorizontalCalendarView calendarView,
+                                         int dx, int dy) {
+
+            }
+
+            @Override
+            public boolean onDateLongClicked(Calendar date, int position) {
+                return true;
+            }
+        });
+
     }
 }
