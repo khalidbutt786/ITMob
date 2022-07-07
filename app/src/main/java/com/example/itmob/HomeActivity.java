@@ -34,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomView);
         bottomNavigationView.setSelectedItemId(R.id.nfc);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, nfcFragment).commit();
+      //  getSupportFragmentManager().beginTransaction().replace(R.id.container, nfcFragment).commit();
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -45,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, nfcFragment, "FRGNFC").commit();
                         return true;
                     case R.id.profil:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, profilFragment, "FRGPROFIL").commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, profilFragment, "FRGPROFIL").addToBackStack(null).commit();
                         return true;
                     case R.id.community:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, communityFragment, "FRGCOMMUNITY").commit();
@@ -55,6 +55,7 @@ public class HomeActivity extends AppCompatActivity {
                         return true;
                     case R.id.qrcamera:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, qrCameraFragment, "FRGCAMERA").commit();
+
                         return true;
                 }
 

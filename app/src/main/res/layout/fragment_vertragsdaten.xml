@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:text="Profile"
+                android:text="Vertragsdaten"
                 android:paddingTop="15dp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
@@ -32,13 +32,7 @@
 
     </LinearLayout>
 
-    <include
-        android:layout_gravity="center"
-        layout="@layout/item_image"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_width="match_parent" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -47,11 +41,9 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <include layout="@layout/vertragsdaten_ansehen" />
-            <include layout="@layout/profil_bearbeiten_button"/>
-            <include layout="@layout/abmelden" />
-            <include layout="@layout/impressum" />
-            <include layout="@layout/konto_loeschen" />
+            <include layout="@layout/vertragdetails"/>
+            <include layout="@layout/kuendigung_vormerken" />
+
 
 
 

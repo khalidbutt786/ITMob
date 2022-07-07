@@ -12,6 +12,8 @@
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.2" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/Impressum.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/abmelden.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/activity_home.xml" value="0.22" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/activity_main.xml" value="0.22" />
@@ -19,13 +21,29 @@
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/activity_participate.xml" value="0.11510416666666666" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/activity_passwort_vergessen.xml" value="0.1921875" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/activity_profile.xml" value="0.28177083333333336" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/agb.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/content_profile.xml" value="0.28177083333333336" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/datenschutz.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/fragment_community.xml" value="0.1" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/fragment_home.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/fragment_profil.xml" value="0.22" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/fragment_q_r_camera.xml" value="0.19479166666666667" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/fragment_vertragsdaten.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/fragment_workout.xml" value="0.19479166666666667" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/impressum.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/item_add.xml" value="0.271875" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/item_email.xml" value="0.271875" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/item_image.xml" value="0.271875" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/item_info.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/item_recycler_.xml" value="0.2828125" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/kontakt.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/konto_loeschen.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/kuendigung_vormerken.xml" value="0.2203125" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/profil_bearbeiten.xml" value="0.25729166666666664" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/profil_bearbeiten_button.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/vertragdetails.xml" value="0.21927083333333333" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/vertragsdaten_ansehen.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/vertragsdaten_details.xml" value="0.21927083333333333" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/menu/bottom_nav_menu.xml" value="0.19375" />
       </map>
     </option>

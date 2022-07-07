@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,8 @@ public class Profil extends Fragment {
 
     TextView textView_name, textView_email, textView_geburtsdatum, textView_startlaufzeit, textView_endlaufzeit, textView_preis;
 
+
+    LinearLayout vertragsdaten, profilBearbeiten;
     Button kuendigung, ausloggen, deleteAccount ;
 
     public Profil() {
@@ -101,24 +104,25 @@ public class Profil extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_profil, container, false);
 
-        kuendigung = view.findViewById(R.id.kuendigungVormerken);
 
-        ausloggen = view.findViewById(R.id.abmelden);
+ //       kuendigung = view.findViewById(R.id.kuendigungVormerken);
 
-        deleteAccount = view.findViewById(R.id.deleteAccount);
+      //  ausloggen = view.findViewById(R.id.abmelden);
 
-        ausloggen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
+      //  deleteAccount = view.findViewById(R.id.deleteAccount);
 
-            }
-        });
+   //     ausloggen.setOnClickListener(new View.OnClickListener() {
+    //        @Override
+    //        public void onClick(View view) {
+    //            Intent intent = new Intent(getActivity(), LoginActivity.class);
+     //           startActivity(intent);
+
+      //      }
+      //  });
 
 
 
-        showPopupMessage();
+   //     showPopupMessage();
 
 
         HomeActivity activity = (HomeActivity) getActivity();
@@ -128,6 +132,59 @@ public class Profil extends Fragment {
 
         String finalEmail = email;
 
+        //kontoloeschen(activity, db, finalEmail);
+
+        vertragsdaten = view.findViewById(R.id.vertragsdaten_btn);
+        vertragsdaten.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new VertragsdatenFragment(), "FRGVertragsdaten").addToBackStack(null).commit();
+            }
+        });
+
+        profilBearbeiten = view.findViewById(R.id.profilBearbeiten_btn);
+        profilBearbeiten.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(),
+                                "PROFIL WORKS: ", Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
+
+        ArrayList<String> userdata = db.getUserData(email);
+        startLaufzeit = userdata.get(0);
+        endLaufzeit = userdata.get(1);
+        preis = userdata.get(2);
+        vorname = userdata.get(3);
+        nachname = userdata.get(4);
+        geburtsdatum = userdata.get(5);
+        email = userdata.get(6);
+        vertragsnummer = userdata.get(7);
+
+        textView_email = view.findViewById(R.id.email_label);
+     //   textView_geburtsdatum = view.findViewById(R.id.geburtsdatum_label);
+     //   textView_startlaufzeit = view.findViewById(R.id.startLaufzeit_label);
+     //   textView_endlaufzeit = view.findViewById(R.id.endlaufzeit_label);
+     //   textView_preis = view.findViewById(R.id.preis_label);
+
+//        textView_name.setText(vorname+" "+nachname);
+  //      textView_endlaufzeit.setText(endLaufzeit);
+ //       textView_startlaufzeit.setText(startLaufzeit);
+     //   textView_preis.setText(preis+"€");
+ //       textView_geburtsdatum.setText(geburtsdatum);
+          textView_email.setText(email);
+
+        if(db.getKuendigungsStatus(vertragsnummer)){
+            kuendigung.setText("Kündigung bereits vorgemerkt");
+            kuendigung.setOnClickListener(null);
+        }
+
+
+        return view;
+    }
+
+    private void kontoloeschen(HomeActivity activity, DBHelper db, String finalEmail) {
         deleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -199,42 +256,7 @@ public class Profil extends Fragment {
 
             }
         });
-
-
-        ArrayList<String> userdata = db.getUserData(email);
-        startLaufzeit = userdata.get(0);
-        endLaufzeit = userdata.get(1);
-        preis = userdata.get(2);
-        vorname = userdata.get(3);
-        nachname = userdata.get(4);
-        geburtsdatum = userdata.get(5);
-        email = userdata.get(6);
-        vertragsnummer = userdata.get(7);
-
-        textView_name = view.findViewById(R.id.name_label);
-        textView_email = view.findViewById(R.id.email_label);
-        textView_geburtsdatum = view.findViewById(R.id.geburtsdatum_label);
-        textView_startlaufzeit = view.findViewById(R.id.startLaufzeit_label);
-        textView_endlaufzeit = view.findViewById(R.id.endlaufzeit_label);
-        textView_preis = view.findViewById(R.id.preis_label);
-
-        textView_name.setText(vorname+" "+nachname);
-        textView_endlaufzeit.setText(endLaufzeit);
-        textView_startlaufzeit.setText(startLaufzeit);
-        textView_preis.setText(preis+"€");
-        textView_geburtsdatum.setText(geburtsdatum);
-        textView_email.setText(email);
-
-        if(db.getKuendigungsStatus(vertragsnummer)){
-            kuendigung.setText("Kündigung bereits vorgemerkt");
-            kuendigung.setOnClickListener(null);
-        }
-
-
-        return view;
     }
-
-
 
 
     private void showPopupMessage() {
