@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Workout">
+    android:id="@+id/container"
+    tools:context=".Workout"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:text="Meine Trainingspläne"
+        android:textSize="30sp"
+        android:gravity="center"
+        />
+    <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Workout"
-        android:textSize="26dp"
-        android:layout_centerInParent="true"/>
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:text="Trainingsplan anzeigen"
+        android:id="@+id/trainingsplan"/>
 
-
-</RelativeLayout>
+</LinearLayout>
