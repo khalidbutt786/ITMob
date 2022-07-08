@@ -21,7 +21,7 @@ public class HomeActivity extends AppCompatActivity {
     Community communityFragment = new Community();
     Workout workoutFragment = new Workout();
 
-    String username;
+    String username, id;
 
 
     @Override
@@ -74,5 +74,6 @@ public class HomeActivity extends AppCompatActivity {
     public String getUsername(){
         return username;
     }
-
+    public String getId(){
+        return id;
 }
