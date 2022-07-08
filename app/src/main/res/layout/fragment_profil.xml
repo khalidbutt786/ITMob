@@ -48,7 +48,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <include layout="@layout/vertragsdaten_ansehen" />
-            <include layout="@layout/profil_bearbeiten_button"/>
             <include layout="@layout/abmelden" />
             <include layout="@layout/impressum" />
             <include layout="@layout/konto_loeschen" />

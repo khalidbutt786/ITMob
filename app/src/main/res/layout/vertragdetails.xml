@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:padding="5dp"
-                    android:src="@drawable/ic_person"
+                    android:src="@drawable/start"
                     android:layout_width="35dp"
                     android:layout_height="35dp"/>
                 <TextView
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:padding="5dp"
-                    android:src="@drawable/ic_person"
+                    android:src="@drawable/location"
                     android:layout_width="35dp"
                     android:layout_height="35dp"/>
                 <TextView
@@ -133,7 +133,7 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:padding="5dp"
-                    android:src="@drawable/ic_person"
+                    android:src="@drawable/moneybag"
                     android:layout_width="35dp"
                     android:layout_height="35dp"/>
                 <TextView
@@ -175,7 +175,7 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:padding="5dp"
-                    android:src="@drawable/ic_person"
+                    android:src="@drawable/walock"
                     android:layout_width="35dp"
                     android:layout_height="35dp"/>
                 <TextView
@@ -218,7 +218,7 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:padding="5dp"
-                    android:src="@drawable/ic_person"
+                    android:src="@drawable/fishing"
                     android:layout_width="35dp"
                     android:layout_height="35dp"/>
                 <TextView
@@ -260,7 +260,7 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:padding="5dp"
-                    android:src="@drawable/ic_person"
+                    android:src="@drawable/refresh"
                     android:layout_width="35dp"
                     android:layout_height="35dp"/>
                 <TextView
@@ -302,7 +302,7 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:padding="5dp"
-                    android:src="@drawable/ic_person"
+                    android:src="@drawable/fireit"
                     android:layout_width="35dp"
                     android:layout_height="35dp"/>
                 <TextView

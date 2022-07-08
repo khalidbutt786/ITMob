@@ -57,8 +57,7 @@ public class Profil extends Fragment {
     TextView textView_name, textView_email, textView_geburtsdatum, textView_startlaufzeit, textView_endlaufzeit, textView_preis;
 
 
-    LinearLayout vertragsdaten, kontakt, ausloggen;
-    Button kuendigung, deleteAccount ;
+    LinearLayout vertragsdaten, kontakt, ausloggen, impressum, datenschutz, agb, deleteAccount;
 
     public Profil() {
         // Required empty public constructor
@@ -137,6 +136,38 @@ public class Profil extends Fragment {
             }
         });
 
+        impressum = view.findViewById(R.id.impressum_btn);
+        impressum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new ImpressumFragment()).addToBackStack(null).commit();
+            }
+        });
+
+        datenschutz = view.findViewById(R.id.datenschutz_btn);
+        datenschutz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new DatenschutzFragment()).addToBackStack(null).commit();
+            }
+        });
+
+        agb = view.findViewById(R.id.agb_btn);
+        agb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new AGBFragment()).addToBackStack(null).commit();
+            }
+        });
+
+        deleteAccount = view.findViewById(R.id.konto_loeschen_btn);
+        deleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                kontoloeschen(activity,db, finalEmail);
+            }
+        });
+
         ArrayList<String> userdata = db.getUserData(email);
         startLaufzeit = userdata.get(0);
         endLaufzeit = userdata.get(1);
@@ -149,11 +180,6 @@ public class Profil extends Fragment {
 
         textView_email = view.findViewById(R.id.email_label);
         textView_email.setText(email);
-
-        if(db.getKuendigungsStatus(vertragsnummer)){
-            kuendigung.setText("Kündigung bereits vorgemerkt");
-            kuendigung.setOnClickListener(null);
-        }
 
 
         return view;

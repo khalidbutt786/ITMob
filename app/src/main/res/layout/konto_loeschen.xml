@@ -10,6 +10,7 @@
     app:cardUseCompatPadding="true"
     card_view:cardCornerRAdius="5dp">
     <LinearLayout
+        android:id="@+id/konto_loeschen_btn"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -19,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:src="@drawable/ic_email"
+                android:src="@drawable/delete"
                 android:padding="2dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"

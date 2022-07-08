@@ -45,7 +45,7 @@ dependencies {
     implementation "androidx.biometric:biometric:1.1.0"
     implementation 'com.github.gastricspark:scrolldatepicker:0.0.1'
     implementation 'devs.mulham.horizontalcalendar:horizontalcalendar:1.3.4'
-
+    implementation 'org.sufficientlysecure:html-textview:3.2'
 
     dependencies {
         def room_version = "2.4.2"

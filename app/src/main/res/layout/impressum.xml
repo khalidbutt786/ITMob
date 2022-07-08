@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:src="@drawable/ic_email"
+                android:src="@drawable/email"
                 android:padding="2dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
@@ -42,12 +42,13 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/agb_btn"
             android:orientation="horizontal"
             android:padding="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:src="@drawable/ic_email"
+                android:src="@drawable/document"
                 android:padding="2dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
@@ -67,12 +68,13 @@
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/datenschutz_btn"
             android:orientation="horizontal"
             android:padding="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:src="@drawable/ic_email"
+                android:src="@drawable/cyberecurity"
                 android:padding="2dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
@@ -92,12 +94,13 @@
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/impressum_btn"
             android:orientation="horizontal"
             android:padding="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:src="@drawable/ic_email"
+                android:src="@drawable/information"
                 android:padding="2dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
