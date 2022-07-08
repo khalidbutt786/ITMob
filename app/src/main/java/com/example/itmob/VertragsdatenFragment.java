@@ -2,6 +2,7 @@ package com.example.itmob;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -77,7 +78,11 @@ public class VertragsdatenFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_vertragsdaten, container, false);
 
         kuendigung = view.findViewById(R.id.kuendigungVormerken_btn);
+
         showPopupMessage();
+
+
+
 
         // Inflate the layout for this fragment
         return view;
@@ -179,5 +184,7 @@ public class VertragsdatenFragment extends Fragment {
 
 
     }
+
+
 
 }
