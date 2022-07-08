@@ -23,11 +23,21 @@ public class DBHelper extends SQLiteOpenHelper {
         dbContext = context;
     }
 
+
+    public static final String UEBUNG_TABLE = "UEBUNG_TABLE";
+    public static final String COLUMN_ID = "ID";
+
+    public static final String COLUMN_NAME = "NAME";
+    public static final String COLUMN_MUSKELGRUPPE = "MUSKELGRUPPE";
+    public static final String COLUMN_SAETZE = "SAETZE";
+    public static final String COLUMN_WIEDERHOLUNGEN = "WIEDERHOLUNG";
+
+
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        String createTableStatement="CREATE TABLE " + UEBUNG_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+ "USERID INT,  " + COLUMN_NAME + " TEXT, " + COLUMN_MUSKELGRUPPE + " TEXT, " + COLUMN_SAETZE + " TEXT, " + COLUMN_WIEDERHOLUNGEN + " TEXT" + ")";
         db.execSQL("CREATE TABLE VERTRAG(vertragID INT PRIMARY KEY, StartlaufZeit TEXT, EndLaufZeit Text, Preis TEXT, Vorname TEXT, Nachname TEXT, Geburtsdatum TEXT, Email TEXT, KuendigungVorgemerkt INT)");
-        db.execSQL("CREATE TABLE UEBUNG(uebungID INT PRIMARY KEY, Name TEXT, Muskelgruppe Text, Wiederholungen TEXT, Saetze TEXT)");
+        db.execSQL(createTableStatement);
         db.execSQL("CREATE TABLE USER(userID INT PRIMARY KEY, Email TEXT, Passwort TEXT, VertragID INT, FOREIGN KEY(VertragID) REFERENCES VERTRAG(vertragid), FOREIGN KEY(Email) REFERENCES VERTRAG(Email))");
         db.execSQL("CREATE TABLE USER_UEBUNG(user_uebungID INT PRIMARY KEY, USERID INT, UEBUNGID INT, FOREIGN KEY(USERID) REFERENCES USER(userID), FOREIGN KEY(UEBUNGID) REFERENCES UEBUNG(uebungID))");
         db.execSQL("CREATE TABLE ACTIVEUSER(userID INT PRIMARY KEY)");
@@ -59,12 +69,91 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration ) VALUES (495, 'Slim Fit', 'Zeeshan', '01-07-2022','10:15','50 minutes' );");
         db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration ) VALUES (395, 'Body Fit', 'Ajmal', '02-07-2022','8:15','40 minutes' );");
 
+    }
 
 
 
 
+    public ArrayList<Uebung> getAll(String userId) {
+        // Initialize an arraylist to hold our database entries.
+        ArrayList<Uebung> list = new ArrayList<>();
+        // Choose table to select from.
+        //String queryString = "SELECT * FROM " + UEBUNG_TABLE + " where USERID = ?", new String[]{userId}";
+        // Get a readable database.
+        SQLiteDatabase db = this.getReadableDatabase();
+        //Cursor cursor = db.rawQuery(queryString, null);
+        Cursor cursor = db.rawQuery("Select * from UEBUNG_TABLE where USERID = ?", new String[]{userId});
+
+        if(cursor.moveToFirst()) {
+            // Loop through the cursor and create Uebung objects, put them into the list.
+            do {
+                int uebungID = cursor.getInt(0);
+                int userID = cursor.getInt(1);
+                String uebungName = cursor.getString(2);
+                String uebungMuskelgruppe = cursor.getString(3);
+                int uebungSaetze = cursor.getInt(4);
+                int uebungWiederholung = cursor.getInt(5);
+                // Create uebung object from table data.
+                Uebung newUebung = new Uebung(uebungID, userID, uebungName, uebungMuskelgruppe, uebungSaetze, uebungWiederholung);
+                list.add(newUebung);
+                // Iterate until end of table.
+            } while (cursor.moveToNext());
+        }
+        // Close cursor and database.
+        cursor.close();
+        db.close();
+
+        return list;
+    }
+    public boolean update(int id, String name, String muskelgruppe, String saetze, String wiederholungen) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_NAME, name);
+        cv.put(COLUMN_MUSKELGRUPPE, muskelgruppe);
+        cv.put(COLUMN_SAETZE, saetze);
+        cv.put(COLUMN_WIEDERHOLUNGEN, wiederholungen);
+        cv.put(COLUMN_ID, id);
+
+        long update = db.update(UEBUNG_TABLE, cv,   COLUMN_ID+ " = " + id, new String[]{});
+        return update!=-1;
+    }
+
+    public void deleteUebung(String name) {
+        SQLiteDatabase db = getWritableDatabase();
+        String queryString = "DELETE FROM " + UEBUNG_TABLE + " WHERE " + COLUMN_NAME + " = " + name;
+        Cursor cursor = db.rawQuery(queryString, null);
+        cursor.moveToFirst();
+        db.close();
+    }
+    public boolean addOne(Uebung uebung) {
+        // Initialize writable database & content values.
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        // Put content values.
+        cv.put(COLUMN_NAME, uebung.getName());
+        cv.put("USERID", uebung.getUserid());
+        cv.put(COLUMN_MUSKELGRUPPE, uebung.getMuskelgruppe());
+        cv.put(COLUMN_SAETZE, uebung.getSaetze());
+        cv.put(COLUMN_WIEDERHOLUNGEN, uebung.getWiederholungen());
+
+        // Insert into database.
+        long insert = db.insert(UEBUNG_TABLE, null, cv);
+
+        return insert != -1;
+    }
 
 
+    public void deleteOne(Uebung uebung) {
+        // Find uebung in the database. If found, delete it and return true.
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryString = "DELETE FROM " + UEBUNG_TABLE + " WHERE " + COLUMN_ID + " = " + uebung.getId() + " ;";
+        Cursor cursor = db.rawQuery(queryString, null);
+        cursor.moveToFirst();
+        cursor.close();
+        db.close();
     }
 
     @Override
@@ -75,6 +164,18 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("drop Table if exists VERTRAG");
 
     }
+
+    public int getUserID(String email) {
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("Select * from VERTRAG where Email = ?", new String[]{email});
+        int id =0;
+        if (cursor.moveToFirst()){
+            id = cursor.getInt(0);
+        }
+        cursor.close();
+        return id;
+    }
+
 
     public void deleteUser(String email){
 
