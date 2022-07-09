@@ -20,6 +20,8 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.encoder.QRCode;
 
+import java.util.ArrayList;
+
 
 public class NFC extends Fragment {
     NfcAdapter nfcAdapter;
@@ -34,7 +36,7 @@ public class NFC extends Fragment {
     private int progress = 0;
 
     private ProgressBar progressBar;
-    private TextView textViewProgress, auslastung_beschreibung;
+    private TextView textViewProgress, auslastung_beschreibung, welcomeUser;
 
     ImageView qrcode;
 
@@ -123,6 +125,12 @@ public class NFC extends Fragment {
             auslastung_beschreibung.setText("Es ist wenig los aktuell");
         }
 
+
+        welcomeUser = view.findViewById(R.id.textView_welcomeUser);
+
+        ArrayList<String> userdata = db.getUserData(emailuser);
+        vorname = userdata.get(3);
+        welcomeUser.setText("Hallo "+vorname+"!");
 
 
     }
