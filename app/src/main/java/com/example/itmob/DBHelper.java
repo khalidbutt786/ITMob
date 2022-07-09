@@ -38,7 +38,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String createTableStatement="CREATE TABLE " + UEBUNG_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+ "USERID INT,  " + COLUMN_NAME + " TEXT, " + COLUMN_MUSKELGRUPPE + " TEXT, " + COLUMN_SAETZE + " TEXT, " + COLUMN_WIEDERHOLUNGEN + " TEXT" + ")";
         db.execSQL("CREATE TABLE VERTRAG(vertragID INT PRIMARY KEY, StartlaufZeit TEXT, EndLaufZeit Text, Preis TEXT, Vorname TEXT, Nachname TEXT, Geburtsdatum TEXT, Email TEXT, KuendigungVorgemerkt INT)");
         db.execSQL(createTableStatement);
-        db.execSQL("CREATE TABLE USER(userID INT PRIMARY KEY, Email TEXT, Passwort TEXT, VertragID INT, FOREIGN KEY(VertragID) REFERENCES VERTRAG(vertragid), FOREIGN KEY(Email) REFERENCES VERTRAG(Email))");
+        db.execSQL("CREATE TABLE USER(userID INT PRIMARY KEY, Email TEXT, Passwort TEXT, VertragID INT,ImagePath TEXT, FOREIGN KEY(VertragID) REFERENCES VERTRAG(vertragid), FOREIGN KEY(Email) REFERENCES VERTRAG(Email))");
         db.execSQL("CREATE TABLE USER_UEBUNG(user_uebungID INT PRIMARY KEY, USERID INT, UEBUNGID INT, FOREIGN KEY(USERID) REFERENCES USER(userID), FOREIGN KEY(UEBUNGID) REFERENCES UEBUNG(uebungID))");
         db.execSQL("CREATE TABLE ACTIVEUSER(userID INT PRIMARY KEY)");
 
@@ -49,19 +49,13 @@ public class DBHelper extends SQLiteOpenHelper {
         // creating table for participants of a particular course
         db.execSQL("CREATE TABLE PARTICIPANTS(courseId INTEGER  , vertragEmail TEXT , pID INTEGER PRIMARY KEY)");
 
-        db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (1, '2022-06-23', '2024-06-23', '39.99','Khalid','Butt','06-05-1997', 'kb' );");
+        db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (1, '23.06.2022', '23.06.2024', '39.99','Khalid','Butt','06.05.1997', 'kb' );");
         db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (2, '2021-03-06', '2024-03-06', '24.00','Markus','Ruehl','23-08-1978', 'mr' );");
         db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (3, '2020-02-05', '2024-02-05', '19.99','Ronnie','Coleman','02-10-1988', 'rc' );");
 
         db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (1);");
         db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (2);");
-        db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (3);");
-        db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (4);");
-        db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (5);");
-        db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (6);");
-        db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (7);");
-        db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (8);");
-        db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (9);");
+
 
         db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration ) VALUES (999, 'SLIM FIT', 'ISRAR ALI', '30-06-2022','8:15','45 minutes' );");
         db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration ) VALUES (510, 'BODY Fit', 'AHMAD', '30-06-2022','9:15','50 minutes' );");
@@ -174,6 +168,26 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return id;
+    }
+
+
+    public String imagePath(String email) {
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("Select * from USER where Email = ?", new String[]{email});
+        String path = "";
+        if (cursor.moveToFirst()){
+            path = cursor.getString(4);
+        }
+        cursor.close();
+        return path;
+    }
+
+    public void updateImagePath(String email, String path){
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        myDB.execSQL("UPDATE USER SET ImagePath="+"'"+path+"'"+ " WHERE Email='"+email+"'");
+
     }
 
 
@@ -511,4 +525,21 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
+    public int getUserCount() {
+
+            int userCount = 0;
+            SQLiteDatabase myDB = this.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            Cursor cursor = myDB.rawQuery("Select Count(*) from VERTRAG", new String[]{});
+
+            if (cursor.moveToFirst()) {
+
+                userCount = cursor.getInt(0);
+                return userCount;
+            }
+
+            return userCount;
+
+
+    }
 }

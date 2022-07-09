@@ -3,9 +3,11 @@ package com.example.itmob;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -16,8 +18,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.concurrent.Executor;
 
 /**
@@ -32,6 +40,16 @@ public class VertragsdatenFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private String startLaufzeit ;
+    private String endLaufzeit;
+    private String preis;
+    private String vertragsnummer;
+    private String automatischeVerlaengerungAm;
+    private String abrechnungsTag;
+    private String kuendigungsvormerkung;
+    private String standort;
+    View view;
+
     LinearLayout kuendigung;
     private Executor executor;
     private BiometricPrompt biometricPrompt;
@@ -40,6 +58,9 @@ public class VertragsdatenFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    TextView textView_standort, textView_automatischeVerlaengerungAm, textView_abrechnungsTag, textView_kuendigungsvormerkung, textView_startlaufzeit, textView_endlaufzeit, textView_preis;
+
 
     public VertragsdatenFragment() {
         // Required empty public constructor
@@ -72,10 +93,47 @@ public class VertragsdatenFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_vertragsdaten, container, false);
+        view = inflater.inflate(R.layout.fragment_vertragsdaten, container, false);
+
+        HomeActivity activity = (HomeActivity) getActivity();
+        String email = activity.getUsername();
+        DBHelper db = new DBHelper(this.getContext());
+
+
+        ArrayList<String> userdata = db.getUserData(email);
+        startLaufzeit = userdata.get(0);
+        endLaufzeit = userdata.get(1);
+        preis = userdata.get(2);
+        kuendigungsvormerkung = userdata.get(7);
+        standort = "FutureFitness in Frankfurt am Main";
+        abrechnungsTag = startLaufzeit.substring(0,2);
+
+
+
+
+        textView_startlaufzeit = view.findViewById(R.id.vertragsbeginn_txt);
+        textView_endlaufzeit = view.findViewById(R.id.vertragsende_txt);
+        textView_preis = view.findViewById(R.id.mitgliedsbeitrag_txt);
+        textView_standort = view.findViewById(R.id.standort_txt);
+        textView_kuendigungsvormerkung = view.findViewById(R.id.kuendigungVormerkung_txt);
+        textView_abrechnungsTag = view.findViewById(R.id.abrechnungstag_txt);
+
+        textView_standort.setText(standort);
+        textView_preis.setText(preis+"€");
+        textView_startlaufzeit.setText(startLaufzeit);
+        textView_endlaufzeit.setText(endLaufzeit);
+        textView_abrechnungsTag.setText("Monatlich zum "+abrechnungsTag+".");
+
+        if (Integer.parseInt(kuendigungsvormerkung)==1){
+            textView_kuendigungsvormerkung.setText("Kündigung bereits vorgemerkt");
+        }
+        else{
+            textView_kuendigungsvormerkung.setText("Keine Vormerkung");
+        }
 
         kuendigung = view.findViewById(R.id.kuendigungVormerken_btn);
 
@@ -90,75 +148,86 @@ public class VertragsdatenFragment extends Fragment {
 
 
     private void showPopupMessage() {
-        kuendigung.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                final AlertDialog dialog = new AlertDialog.Builder(view.getContext())
-                        .setTitle("Kündigung vormerken")
-                        .setMessage("Falls Sie planen Ihre Mitgliedschaft zu kündigen, können Sie Ihre Kündigung über unsere App vormerken. \n\nKlicken Sie auf Weiter um die Kündigung vorzumerken.")
-                        .setPositiveButton("Weiter", null)
-                        .setNegativeButton("Abbrechen", null)
-                        .show();
 
-                Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                positiveButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+            kuendigung.setOnClickListener(new View.OnClickListener() {
 
-                        executor = ContextCompat.getMainExecutor(view.getContext());
-                        biometricPrompt = new BiometricPrompt((FragmentActivity) view.getContext(),
-                                executor, new BiometricPrompt.AuthenticationCallback() {
+                @Override
+                public void onClick(View view) {
+
+                    if(Integer.parseInt(kuendigungsvormerkung) == 1){
+                        bereitsGekundigt(view);
+                    }
+                    else {
+                        final AlertDialog dialog = new AlertDialog.Builder(view.getContext())
+                                .setTitle("Kündigung vormerken")
+                                .setMessage("Falls Sie planen Ihre Mitgliedschaft zu kündigen, können Sie Ihre Kündigung über unsere App vormerken. \n\nKlicken Sie auf Weiter um die Kündigung vorzumerken.")
+                                .setPositiveButton("Weiter", null)
+                                .setNegativeButton("Abbrechen", null)
+                                .show();
+
+                        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                        positiveButton.setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public void onAuthenticationError(int errorCode,
-                                                              @NonNull CharSequence errString) {
-                                super.onAuthenticationError(errorCode, errString);
-                                Toast.makeText(view.getContext(),
-                                                "Authentifizierung fehlgeschlagen: " + errString, Toast.LENGTH_SHORT)
-                                        .show();
-                            }
+                            public void onClick(View v) {
 
-                            @Override
-                            public void onAuthenticationSucceeded(
-                                    @NonNull BiometricPrompt.AuthenticationResult result) {
-                                super.onAuthenticationSucceeded(result);
-                                Toast.makeText(view.getContext(),
-                                        "Authentifizierung erfolgreich!", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                                zeigeBestaetigungsPopUp(view);
+                                executor = ContextCompat.getMainExecutor(view.getContext());
+                                biometricPrompt = new BiometricPrompt((FragmentActivity) view.getContext(),
+                                        executor, new BiometricPrompt.AuthenticationCallback() {
+                                    @Override
+                                    public void onAuthenticationError(int errorCode,
+                                                                      @NonNull CharSequence errString) {
+                                        super.onAuthenticationError(errorCode, errString);
+                                        Toast.makeText(view.getContext(),
+                                                        "Authentifizierung fehlgeschlagen: " + errString, Toast.LENGTH_SHORT)
+                                                .show();
+                                    }
+
+                                    @Override
+                                    public void onAuthenticationSucceeded(
+                                            @NonNull BiometricPrompt.AuthenticationResult result) {
+                                        super.onAuthenticationSucceeded(result);
+                                        Toast.makeText(view.getContext(),
+                                                "Authentifizierung erfolgreich!", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
+                                        zeigeBestaetigungsPopUp(view);
 
 
-                            }
+                                    }
 
-                            @Override
-                            public void onAuthenticationFailed() {
-                                super.onAuthenticationFailed();
-                                Toast.makeText(view.getContext(), "Authentifizierung fehlgeschlagen",
-                                                Toast.LENGTH_SHORT)
-                                        .show();
+                                    @Override
+                                    public void onAuthenticationFailed() {
+                                        super.onAuthenticationFailed();
+                                        Toast.makeText(view.getContext(), "Authentifizierung fehlgeschlagen",
+                                                        Toast.LENGTH_SHORT)
+                                                .show();
+                                    }
+                                });
+
+                                promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                                        .setTitle("Fingerabrduck verwenden")
+                                        .setSubtitle("Verifikation wird benötigt um die Kündigung vorzumerken.")
+                                        .setNegativeButtonText("PIN-Eingabe")
+                                        .build();
+
+                                // Prompt appears when user clicks "Log in".
+                                // Consider integrating with the keystore to unlock cryptographic operations,
+                                // if needed by your app.
+
+                                biometricPrompt.authenticate(promptInfo);
+
+
+
                             }
                         });
-
-                        promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                                .setTitle("Fingerabrduck verwenden")
-                                .setSubtitle("Verifikation wird benötigt um die Kündigung vorzumerken.")
-                                .setNegativeButtonText("PIN-Eingabe")
-                                .build();
-
-                        // Prompt appears when user clicks "Log in".
-                        // Consider integrating with the keystore to unlock cryptographic operations,
-                        // if needed by your app.
-
-                        biometricPrompt.authenticate(promptInfo);
-
-
-
                     }
-                });
 
-            }
-        });
-    }
+
+
+                }
+            });
+        }
+
 
     private void zeigeBestaetigungsPopUp(View view) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(view.getContext());
@@ -177,14 +246,28 @@ public class VertragsdatenFragment extends Fragment {
         AlertDialog alert11 = builder1.create();
         alert11.show();
         DBHelper db = new DBHelper(this.getContext());
-       // db.updateKuendigungsstatus(vertragsnummer);
-
-      //  boolean status = db.getKuendigungsStatus(vertragsnummer);
-     //   kuendigungbereitsvorgemerkt = status;
-
+        db.updateKuendigungsstatus(vertragsnummer);
+        boolean status = db.getKuendigungsStatus(vertragsnummer);
 
     }
 
+    private void bereitsGekundigt(View view) {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(view.getContext());
 
+        builder1.setMessage("Kündigung bereits vorgemerkt! \n Falls noch nicht geschehen, wir melden uns postialisch bei dir innerhalb der nächsten 3 Werktage.");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Alles Klar!",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
+    }
 
 }

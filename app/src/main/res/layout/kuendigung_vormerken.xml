@@ -21,7 +21,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:src="@drawable/warning"
-                android:padding="2dp"
+                android:padding="5dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="30dp"

@@ -1,16 +1,27 @@
 package com.example.itmob;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +30,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.imageview.ShapeableImageView;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 
@@ -48,13 +62,17 @@ public class Profil extends Fragment {
     private String vertragsnummer;
 
 
+    int SELECT_IMAGE_CODE = 1;
     private Executor executor;
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
 
     Boolean kuendigungbereitsvorgemerkt = false;
 
-    TextView textView_name, textView_email, textView_geburtsdatum, textView_startlaufzeit, textView_endlaufzeit, textView_preis;
+    TextView textView_email, textView_name;
+    private String path;
+
+    ShapeableImageView photo_profil;
 
 
     LinearLayout vertragsdaten, kontakt, ausloggen, impressum, datenschutz, agb, deleteAccount;
@@ -181,9 +199,49 @@ public class Profil extends Fragment {
         textView_email = view.findViewById(R.id.email_label);
         textView_email.setText(email);
 
+        textView_name = view.findViewById(R.id.name_label);
+        textView_name.setText(vorname+" "+nachname);
+
+        photo_profil = view.findViewById(R.id.photo_profil);
+
+
+
+
+
+        String finalEmail1 = email;
+        ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            // There are no request codes
+                            Intent data = result.getData();
+                            Uri uri = data.getData();
+                            photo_profil.setImageURI(uri);
+                            db.updateImagePath(finalEmail1, uri.getPath());
+                        }
+                    }
+                });
+
+        photo_profil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                someActivityResultLauncher.launch(intent);
+
+
+            }
+        });
+
 
         return view;
     }
+
 
     private void kontoloeschen(HomeActivity activity, DBHelper db, String finalEmail) {
         deleteAccount.setOnClickListener(new View.OnClickListener() {

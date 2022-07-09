@@ -5,7 +5,8 @@
       <map>
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/drawable/background.xml" value="0.2755" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/drawable/card.xml" value="0.292" />
-        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/drawable/circle.xml" value="0.2425" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/drawable/circle.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/drawable/circle_.xml" value="0.13" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/drawable/ic_baseline_fitness_center_24.xml" value="0.2" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/drawable/ic_baseline_group_work_24.xml" value="0.2" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/drawable/ic_baseline_qr_code_scanner_24.xml" value="0.2" />
@@ -23,6 +24,7 @@
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/activity_profile.xml" value="0.28177083333333336" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/agb.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/anruf_button.xml" value="0.19895833333333332" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/auslastung.xml" value="0.22" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/content_profile.xml" value="0.28177083333333336" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/datenschutz.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/email_button.xml" value="0.19895833333333332" />
