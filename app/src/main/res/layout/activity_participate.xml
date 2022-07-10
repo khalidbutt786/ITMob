@@ -4,169 +4,94 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ParticipateActivity">
+    tools:context=".MainActivity">
 
 
-
-
-
-    <TextView
+    <ImageView
+        android:id="@+id/imageView_courseBild"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:text="Day"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:id="@+id/day_top"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/day_top"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:text="30-6-2022"
-        android:id="@+id/date_top"
-        android:textColor="@color/black"
-        android:layout_marginTop="20dp"
-
-        />
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:background="@color/purple_700"
-        app:layout_constraintTop_toBottomOf="@id/date_top"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/constraint_participate"
-        >
-
-
-
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/ic_baseline_image_24"
-            android:background="@color/white"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/iv_participate"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            />
-
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/iv_participate"
-            app:layout_constraintLeft_toRightOf="@id/iv_participate"
-            app:layout_constraintRight_toRightOf="parent"
-            android:text="Body Fit"
-            android:textColor="@color/white"
-            app:layout_constraintHorizontal_bias="0.2"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:id="@+id/nameOF_Course"
-            />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/nameOF_Course"
-            app:layout_constraintLeft_toRightOf="@id/iv_participate"
-            app:layout_constraintRight_toRightOf="parent"
-            android:text="8:00 - 9:00"
-            app:layout_constraintHorizontal_bias="0.2"
-            android:textColor="@color/white"
-            android:id="@+id/time_participate"
-            app:layout_constraintBottom_toTopOf="@+id/instructorName_participate"
-            />
-
-
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/iv_participate"
-            app:layout_constraintLeft_toRightOf="@id/iv_participate"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-            android:text="by Christian"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:id="@+id/instructorName_participate"
-            />
-
-
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    
-    
-    
-    
-    <android.widget.Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="Participate"
-        android:padding="10dp"
-        app:layout_constraintTop_toBottomOf="@id/constraint_participate"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="30dp"
-        android:background="#008000"
-        android:id="@+id/btnParticipate"
-        />
-
-
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Participants:"
-
-        android:textSize="17sp"
-        android:textColor="@color/black"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnParticipate"
-        android:layout_margin="15dp"
-        android:id="@+id/participants_hard"
-        />
-
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/participants_hard"
+        android:layout_height="280dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/yoga"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/recycler_part"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView_kurstitel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Kurstitel"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_courseBild" />
+
+    <TextView
+        android:id="@+id/textView_kursdatum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Am Dienstag, 12.07.2022"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_kurstitel" />
 
 
+    <TextView
+        android:id="@+id/textView_kursUhrZeitundDauer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Beginn: 09:45 (45 Minuten)"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintBottom_toTopOf="@+id/textView11_trainerName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_kursdatum"
+        app:layout_constraintVertical_bias="0.0" />
 
+    <Button
+        android:id="@+id/btnParticipate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:text="Für Kurs anmelden"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10_kursBeschreibung"
+        app:layout_constraintVertical_bias="0.853" />
 
+    <TextView
+        android:id="@+id/textView10_kursBeschreibung"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11_trainerName" />
 
-
-
+    <TextView
+        android:id="@+id/textView11_trainerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="73dp"
+        android:layout_marginBottom="20dp"
+        android:text="Trainer: "
+        app:layout_constraintBottom_toTopOf="@+id/textView_kursUhrZeitundDauer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_kursdatum"
+        app:layout_constraintVertical_bias="0.482" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -90,7 +91,6 @@ public class Community extends Fragment {
 
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_courses);
-        tvDate = view.findViewById(R.id.date_CoursesFrag);
 
         HomeActivity activity = (HomeActivity) getActivity();
         String email = activity.getUsername();
@@ -107,7 +107,6 @@ public class Community extends Fragment {
         SimpleDateFormat inFormat = new SimpleDateFormat("dd-MM-yyyy");
         str_date = inFormat.format(date);
 
-        tvDate.setText("Heute "+str_date);
         int day = date.getDay();    // getting Day
 
         List<ModelCourses> list = dbHelper.getCoursesByDate(str_date);    // getting courses of particular Date
@@ -130,6 +129,7 @@ public class Community extends Fragment {
                 startActivity(intent);
             }
         }));
+
 
 
 
@@ -183,8 +183,6 @@ public class Community extends Fragment {
 
 
 
-
-                tvDate.setText("Heute"+bc);
 
             }
 

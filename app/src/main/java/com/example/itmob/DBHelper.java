@@ -45,7 +45,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
         // table for courses
-        db.execSQL("CREATE TABLE courses_table(courseid INTEGER PRIMARY KEY AUTOINCREMENT , courseName TEXT, courseTrainer TEXT, courseDate TEXT, courseStartTime TEXT , courseTimeDuration TEXT)");
+        db.execSQL("CREATE TABLE courses_table(courseid INTEGER PRIMARY KEY AUTOINCREMENT , courseName TEXT, courseTrainer TEXT, courseDate TEXT, courseStartTime TEXT , courseTimeDuration TEXT, courseDescription TEXT, courseImage TEXT)");
         // creating table for participants of a particular course
         db.execSQL("CREATE TABLE PARTICIPANTS(courseId INTEGER  , vertragEmail TEXT , pID INTEGER PRIMARY KEY)");
 
@@ -57,11 +57,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (2);");
 
 
-        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration ) VALUES (999, 'SLIM FIT', 'ISRAR ALI', '30-06-2022','8:15','45 minutes' );");
-        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration ) VALUES (510, 'BODY Fit', 'AHMAD', '30-06-2022','9:15','50 minutes' );");
-        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration ) VALUES (515, 'Slim Fit', 'Adnan', '28-06-2022','9:15','50 minutes' );");
-        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration ) VALUES (495, 'Slim Fit', 'Zeeshan', '01-07-2022','10:15','50 minutes' );");
-        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration ) VALUES (395, 'Body Fit', 'Ajmal', '02-07-2022','8:15','40 minutes' );");
+        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration, courseDescription,courseImage ) VALUES (999, 'SLIM FIT', 'ISRAR ALI', '30-06-2022','8:15','45 minutes', 'SLIM FIT BESCHREIBUNG', 'elastico' );");
+        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration,courseDescription,courseImage ) VALUES (510, 'BODY Fit', 'AHMAD', '30-06-2022','9:15','50 minutes', 'BODY Fit BESCHREIBUNG','bodyfit'  );");
+        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration,courseDescription,courseImage ) VALUES (515, 'Slim Fit', 'Adnan', '28-06-2022','9:15','50 minutes' , 'Slim Fit BESCHREIBUNG', 'yoga' );");
+        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration,courseDescription,courseImage ) VALUES (495, 'Slim Fit', 'Zeeshan', '01-07-2022','10:15','50 minutes', 'Slim Fit BESCHREIBUNG', 'elastico'  );");
+        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration,courseDescription,courseImage ) VALUES (395, 'Body Fit', 'Ajmal', '02-07-2022','8:15','40 minutes', 'Body Fit BESCHREIBUNG', 'yoga'  );");
 
     }
 
@@ -168,6 +168,35 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return id;
+    }
+
+    public ArrayList<String> getCourseData(String courseName){
+
+        ArrayList<String> courseData = new ArrayList<>();
+
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("Select * from courses_table where courseName = ?", new String[]{courseName});
+
+        if (cursor.moveToFirst()){
+
+            String db_courseName = cursor.getString(1);
+            String  db_courseTrainer = cursor.getString(2);
+            String db_courseDate = cursor.getString(3);
+            String db_courseStartTime = cursor.getString(4);
+            String db_courseDuration = cursor.getString(5);
+            String db_courseDescription = cursor.getString(6);
+
+
+            courseData.add(db_courseName);
+            courseData.add(db_courseTrainer);
+            courseData.add(db_courseDate);
+            courseData.add(db_courseStartTime);
+            courseData.add(db_courseDuration);
+            courseData.add(db_courseDescription);
+
+        }
+        cursor.close();
+        return courseData;
     }
 
 

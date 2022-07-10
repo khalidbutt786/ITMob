@@ -46,6 +46,8 @@ dependencies {
     implementation 'com.github.gastricspark:scrolldatepicker:0.0.1'
     implementation 'devs.mulham.horizontalcalendar:horizontalcalendar:1.3.4'
     implementation 'org.sufficientlysecure:html-textview:3.2'
+    implementation 'com.squareup.picasso:picasso:2.8'
+
 
     dependencies {
         def room_version = "2.4.2"

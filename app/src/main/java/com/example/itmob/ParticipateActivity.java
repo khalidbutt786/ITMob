@@ -5,14 +5,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +36,7 @@ public class ParticipateActivity extends AppCompatActivity {
     Button participateBtn;
     String email ;
     DBHelper dbHelper ;
+    ImageView imageView_courseBild;
 
 
     RecyclerView recyclerView ;
@@ -41,16 +50,12 @@ public class ParticipateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_participate);
 
-        day_top = findViewById(R.id.day_top);
-        date_top = findViewById(R.id.date_top);
-        nameOF_Course = findViewById(R.id.nameOF_Course);
-        instructorName_participate = findViewById(R.id.instructorName_participate);
-        time_participate = findViewById(R.id.time_participate);
+        date_top = findViewById(R.id.textView_kursdatum);
+        nameOF_Course = findViewById(R.id.textView_kurstitel);
+        instructorName_participate = findViewById(R.id.textView11_trainerName);
         participateBtn = findViewById(R.id.btnParticipate);
-        recyclerView = findViewById(R.id.recycler_part);
-        headingTv = findViewById(R.id.participants_hard);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        headingTv = findViewById(R.id.textView10_kursBeschreibung);
+        imageView_courseBild = findViewById(R.id.imageView_courseBild);
 
 
         dbHelper = new DBHelper(this);
@@ -72,7 +77,7 @@ public class ParticipateActivity extends AppCompatActivity {
 
         if (dbHelper.checkIfParticipated(modelCourses.getId(),email)){
 
-            participateBtn.setText("Un Roll");
+            participateBtn.setText("Vom Kurs abmelden");
             participateBtn.setBackgroundColor(Color.parseColor("#FF0000"));
 
 
@@ -113,13 +118,30 @@ public class ParticipateActivity extends AppCompatActivity {
         }
 
 
-        day_top.setText(day);
-        date_top.setText(modelCourses.getDate());
-        nameOF_Course.setText(modelCourses.getName());
-        instructorName_participate.setText("By   "+modelCourses.getTrainer());
-        time_participate.setText(modelCourses.getStartTime());
+        String kursname = modelCourses.getName();
+        String trainer = "Trainer: "+modelCourses.getTrainer();
+        String startZeit = modelCourses.getStartTime();
+        String kursDauer = modelCourses.getTimeDuration();
+        String kurstag = day+","+modelCourses.getDate();
+
+        ArrayList<String> courseData = new ArrayList<>();
+        courseData = dbHelper.getCourseData(kursname);
 
 
+        String kursBeschreibung = courseData.get(5);
+
+
+        date_top.setText(kurstag);
+        nameOF_Course.setText(kursname);
+        instructorName_participate.setText(trainer);
+        headingTv.setText(kursBeschreibung);
+
+        if(kursname.contains("Body") || kursname.contains("BODY")){
+            imageView_courseBild.setImageDrawable(getResources().getDrawable(R.drawable.bodyfit));
+        }
+        if(kursname.contains("slim")){
+            imageView_courseBild.setImageDrawable(getResources().getDrawable(R.drawable.yoga));
+        }
 
 
         participateBtn.setOnClickListener(new View.OnClickListener() {
@@ -168,28 +190,6 @@ public class ParticipateActivity extends AppCompatActivity {
         // Emails of All Participants
 
        List<String>  list = dbHelper.gettingAllParticipants(modelCourses.getId());
-
-
-       // Getting Names of All Participants
-
-        if (list.size()>0){    // if participants are available than showing in recyclerView
-
-            List<String> listOfNames = new ArrayList<>();
-
-            for (int i = 0 ; i<list.size() ; i++){
-
-                listOfNames.add( dbHelper.getParticipantsName(list.get(i)));
-
-            }
-
-            recyclerView.setAdapter(new AdapterParticipants(listOfNames , ParticipateActivity.this));
-
-
-
-        }else{
-            headingTv.setVisibility(View.INVISIBLE); // if no participants available
-        }
-
 
 
 
