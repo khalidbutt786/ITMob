@@ -140,6 +140,8 @@ public class NFC extends Fragment {
     public void onResume() {
         super.onResume();
 
+        HomeActivity homeActivity = ((HomeActivity) getActivity());
+        homeActivity.setTitle("Dashboard");
     }
 
     private void updateProgressBar()
@@ -147,5 +149,7 @@ public class NFC extends Fragment {
         progressBar.setProgress(progress);
         textViewProgress.setText(progress + "%");
     }
+
+
 
 }

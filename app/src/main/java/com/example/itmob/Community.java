@@ -75,6 +75,10 @@ public class Community extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+
+
     }
 
     @Override
@@ -88,6 +92,7 @@ public class Community extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
+
 
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_courses);
@@ -199,4 +204,13 @@ public class Community extends Fragment {
         });
 
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        HomeActivity homeActivity = ((HomeActivity) getActivity());
+        homeActivity.setTitle("Kursangebote");
+    }
+
 }

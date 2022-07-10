@@ -100,6 +100,8 @@ public class VertragsdatenFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_vertragsdaten, container, false);
 
         HomeActivity activity = (HomeActivity) getActivity();
+
+
         String email = activity.getUsername();
         DBHelper db = new DBHelper(this.getContext());
 
@@ -111,7 +113,6 @@ public class VertragsdatenFragment extends Fragment {
         kuendigungsvormerkung = userdata.get(7);
         standort = "FutureFitness in Frankfurt am Main";
         abrechnungsTag = startLaufzeit.substring(0,2);
-
 
 
 
@@ -269,5 +270,6 @@ public class VertragsdatenFragment extends Fragment {
         alert11.show();
 
     }
+
 
 }

@@ -348,4 +348,13 @@ public class Profil extends Fragment {
         alert11.show();
 
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        HomeActivity homeActivity = ((HomeActivity) getActivity());
+        homeActivity.setTitle("Vertragsdaten");
+    }
+
 }

@@ -30,11 +30,10 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         username = getIntent().getStringExtra("Email");
-
         bottomNavigationView = findViewById(R.id.bottomView);
         bottomNavigationView.setSelectedItemId(R.id.nfc);
 
-      //  getSupportFragmentManager().beginTransaction().replace(R.id.container, nfcFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, nfcFragment).commit();
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override

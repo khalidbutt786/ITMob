@@ -28,6 +28,7 @@ public class Workout extends Fragment {
         view = inflater.inflate(R.layout.fragment_workout, container, false);
         btn = view.findViewById(R.id.trainingsplan);
 
+
         btn.setOnClickListener(view -> {
             Fragment fragment = new Workout1();
             replaceFragment(fragment);
@@ -43,4 +44,13 @@ public class Workout extends Fragment {
         fragmentTransaction.replace(R.id.container, fragment);
         fragmentTransaction.commit();
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        HomeActivity homeActivity = ((HomeActivity) getActivity());
+        homeActivity.setTitle("Trainingspläne");
+    }
+
 }

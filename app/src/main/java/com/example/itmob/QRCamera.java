@@ -29,8 +29,11 @@ public class QRCamera extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         final Activity activity = getActivity();
+
+
         View root = inflater.inflate(R.layout.fragment_q_r_camera, container, false);
         CodeScannerView scannerView = root.findViewById(R.id.scanner_view);
+
         mCodeScanner = new CodeScanner(activity, scannerView);
         try {
             mCodeScanner.setDecodeCallback(new DecodeCallback() {
@@ -60,10 +63,18 @@ public class QRCamera extends Fragment {
         return root;
     }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         mCodeScanner.startPreview();
+        HomeActivity homeActivity = ((HomeActivity) getActivity());
+        homeActivity.setTitle("QR-Code");
     }
 
     @Override
