@@ -49,23 +49,21 @@ public class DBHelper extends SQLiteOpenHelper {
         // creating table for participants of a particular course
         db.execSQL("CREATE TABLE PARTICIPANTS(courseId INTEGER  , vertragEmail TEXT , pID INTEGER PRIMARY KEY)");
 
-        db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (1, '23.06.2022', '23.06.2024', '39.99','Khalid','Butt','06.05.1997', 'kb' );");
-        db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (2, '2021-03-06', '2024-03-06', '24.00','Markus','Ruehl','23-08-1978', 'mr' );");
-        db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email ) VALUES (3, '2020-02-05', '2024-02-05', '19.99','Ronnie','Coleman','02-10-1988', 'rc' );");
+        db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email, KuendigungVorgemerkt ) VALUES (1, '23.06.2022', '23.06.2024', '39.99','Khalid','Butt','06.05.1997', 'khalidbutt@live.de', '0');");
+        db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email, KuendigungVorgemerkt ) VALUES (2, '2021-03-06', '2024-03-06', '24.00','Markus','Ruehl','23-08-1978', 'mr', '0');");
+        db.execSQL("INSERT INTO VERTRAG (vertragID, startlaufzeit, endlaufzeit, preis, vorname, nachname, geburtsdatum, email, KuendigungVorgemerkt ) VALUES (3, '2020-02-05', '2024-02-05', '19.99','Ronnie','Coleman','02-10-1988', 'rc', '0');");
 
         db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (1);");
         db.execSQL("INSERT INTO ACTIVEUSER (userID) VALUES (2);");
 
 
-        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration, courseDescription,courseImage ) VALUES (999, 'SLIM FIT', 'ISRAR ALI', '30-06-2022','8:15','45 minutes', 'SLIM FIT BESCHREIBUNG', 'elastico' );");
-        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration,courseDescription,courseImage ) VALUES (510, 'BODY Fit', 'AHMAD', '30-06-2022','9:15','50 minutes', 'BODY Fit BESCHREIBUNG','bodyfit'  );");
-        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration,courseDescription,courseImage ) VALUES (515, 'Slim Fit', 'Adnan', '28-06-2022','9:15','50 minutes' , 'Slim Fit BESCHREIBUNG', 'yoga' );");
-        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration,courseDescription,courseImage ) VALUES (495, 'Slim Fit', 'Zeeshan', '01-07-2022','10:15','50 minutes', 'Slim Fit BESCHREIBUNG', 'elastico'  );");
-        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration,courseDescription,courseImage ) VALUES (395, 'Body Fit', 'Ajmal', '02-07-2022','8:15','40 minutes', 'Body Fit BESCHREIBUNG', 'yoga'  );");
+        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration, courseDescription ) VALUES (999, 'Body Fit', 'Alberto', '30-06-2022','8:15','45 Minuten', 'Bodyworkout ist ein Ganzkörperprogramm in dem es darum geht mit dem eigenen Körpergewicht zu arbeiten um die Körpermitte zu stärken.' );");
+        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration,courseDescription ) VALUES (510, 'Kapoera', 'Niklas', '30-06-2022','9:15','50 Minuten', 'BODY Fit BESCHREIBUNG'  );");
+        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration,courseDescription ) VALUES (515, 'Yoga', 'Vanessa', '30-06-2022','9:15','50 Minuten' , 'Slim Fit BESCHREIBUNG' );");
+        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration,courseDescription ) VALUES (495, 'Cardio', 'Hamza', '30-06-2022','10:15','50 Minuten', 'Slim Fit BESCHREIBUNG'  );");
+        db.execSQL("INSERT INTO courses_table (courseid, courseName, courseTrainer, courseDate, courseStartTime, courseTimeDuration,courseDescription ) VALUES (395, 'BoxFit for Women', 'Luisa', '30-06-2022','8:15','40 Minuten', 'Body Fit BESCHREIBUNG' );");
 
     }
-
-
 
 
     public ArrayList<Uebung> getAll(String userId) {
@@ -353,6 +351,7 @@ public class DBHelper extends SQLiteOpenHelper {
             String geburtsdatum = cursor.getString(6);
             String email = cursor.getString(7);
             String vertragsnummer = cursor.getString(0);
+            String kuendigungVormerkung = cursor.getString(8);
 
             userData.add(startLaufzeit);
             userData.add(endLaufzeit);
@@ -362,6 +361,7 @@ public class DBHelper extends SQLiteOpenHelper {
             userData.add(geburtsdatum);
             userData.add(email);
             userData.add(vertragsnummer);
+            userData.add(kuendigungVormerkung);
 
         }
         cursor.close();

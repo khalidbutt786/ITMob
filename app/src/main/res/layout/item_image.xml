@@ -44,7 +44,7 @@
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="10dp"
                     android:gravity="center"
-                    android:text="PID:362Hb458760"
+                    android:text="Khalidbutt@live.de"
                     android:textColor="#5C5A5A"
                     android:textSize="13sp"
                     android:textStyle="normal" />
@@ -63,8 +63,9 @@
         android:layout_width="98dp"
         android:layout_height="98dp"
         android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
         android:elevation="15dp"
         android:padding="5dp"
-        android:src="@drawable/nutzer"
+        android:src="@drawable/model"
         app:shapeAppearanceOverlay="@style/Circular" />
 </RelativeLayout>

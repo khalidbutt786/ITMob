@@ -110,7 +110,7 @@ public class VertragsdatenFragment extends Fragment {
         startLaufzeit = userdata.get(0);
         endLaufzeit = userdata.get(1);
         preis = userdata.get(2);
-        kuendigungsvormerkung = userdata.get(7);
+        kuendigungsvormerkung = userdata.get(8);
         standort = "FutureFitness in Frankfurt am Main";
         abrechnungsTag = startLaufzeit.substring(0,2);
 
@@ -130,7 +130,7 @@ public class VertragsdatenFragment extends Fragment {
         textView_abrechnungsTag.setText("Monatlich zum "+abrechnungsTag+".");
 
         if (Integer.parseInt(kuendigungsvormerkung)==1){
-            textView_kuendigungsvormerkung.setText("Kündigung bereits vorgemerkt");
+            textView_kuendigungsvormerkung.setText("Kündigung bereits vorgemerkt. Rufe uns unter 015484458 an, um deine Kündigung wirksam zu machen (ganz ohne Papierkram).");
         }
         else{
             textView_kuendigungsvormerkung.setText("Keine Vormerkung");
@@ -255,7 +255,7 @@ public class VertragsdatenFragment extends Fragment {
     private void bereitsGekundigt(View view) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(view.getContext());
 
-        builder1.setMessage("Kündigung bereits vorgemerkt! \n Falls noch nicht geschehen, wir melden uns postialisch bei dir innerhalb der nächsten 3 Werktage.");
+        builder1.setMessage("Kündigung bereits vorgemerkt! \n Rufe uns unter 015484458 an, um deine Kündigung wirksam zu machen (ganz ohne Papierkram).");
         builder1.setCancelable(true);
 
         builder1.setPositiveButton(
