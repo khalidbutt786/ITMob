@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 public class UebungBearbeiten extends Fragment {
 
     private EditText uebung, muskelgruppe, saetze, wiederholungen, id;
+    private Spinner uebungSpinner, muskelgruppeSpinner;
     protected View view;
     Button btnSave;
 
@@ -39,9 +42,12 @@ public class UebungBearbeiten extends Fragment {
         int id = bundle.getInt("ID");
 
         EditText etName, etMuskelgruppe, etSaetze, etWiederholung, etID;
+        TextView tvName, tvMuskelgruppe;
 
-        etName = (EditText) view.findViewById(R.id.uebungName);
-        etMuskelgruppe = (EditText) view.findViewById(R.id.uebungMuskelgruppe);
+        tvName = (TextView) view.findViewById(R.id.uebungName);
+        tvMuskelgruppe = (TextView) view.findViewById(R.id.uebungMuskelgruppe);
+
+
         etSaetze = (EditText) view.findViewById(R.id.uebungSaetze);
         etWiederholung = (EditText) view.findViewById(R.id.uebungWiederholung);
         etID = (EditText) view.findViewById(R.id.uebungId);
@@ -49,16 +55,16 @@ public class UebungBearbeiten extends Fragment {
         String sId = String.valueOf(etID);
 
 
-        etName.setText(name);
-        etMuskelgruppe.setText(muskelgruppe);
+        tvName.setText(name);
+        tvMuskelgruppe.setText(muskelgruppe);
         etSaetze.setText(saetze);
         etWiederholung.setText(wiederholung);
 
         btnSave = (Button) view.findViewById(R.id.saveChanges);
         btnSave.setOnClickListener(view -> {
             String sid=String.valueOf(etID);
-            String newTitle = etName.getText().toString();
-            String newMuskelgruppe = etMuskelgruppe.getText().toString();
+            String newTitle = tvName.getText().toString();
+            String newMuskelgruppe = tvMuskelgruppe.getText().toString();
             String newSaetze = etSaetze.getText().toString();
             String newWiederholungen = etWiederholung.getText().toString();
             //String newId =
@@ -71,7 +77,7 @@ public class UebungBearbeiten extends Fragment {
 
 
             // Go to Fragment 2 to view data.
-            Fragment fragment = new Workout();
+            Fragment fragment = new Workout1();
             replaceFragment(fragment);
         });
 
