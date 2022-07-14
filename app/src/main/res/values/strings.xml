@@ -11,6 +11,55 @@
     <string name="login_failed">"Login failed"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="array_Muskelgruppe">
+        <item>Muskelgruppe</item>
+        <item>Rücken</item>
+        <item>Brust</item>
+        <item>Beine</item>
+        <item>Arme</item>
+        <item>Bauch</item>
+        <item>Schulter</item>
+    </string-array>
+    <string-array name="array_default_Uebungen">
+        <item>Wähle eine Muskelgruppe aus</item>
+    </string-array>
+    <string-array name="array_rücken">
+        <item>Rudern</item>
+        <item>Latziehen</item>
+        <item>Klimmzüge</item>
+        <item>Butterfly Reverse</item>
+    </string-array>
+    <string-array name="array_arm">
+        <item>Bizeps-Curls</item>
+        <item>Dips</item>
+        <item>Trizepsdrücken</item>
+    </string-array>
+    <string-array name="array_bauch">
+        <item>Knieheben</item>
+        <item>Beinheben</item>
+        <item>Buchrolle</item>
+        <item>Mountain Climber</item>
+        <item>Russian Twist</item>
+    </string-array>
+    <string-array name="array_bein">
+        <item>Kniebeugen</item>
+        <item>Beinpresse</item>
+        <item>Beinbeuger</item>
+        <item>Ausfallschritte</item>
+        <item>Beinbeuger</item>
+    </string-array>
+    <string-array name="array_brust">
+        <item>Bankdrücken</item>
+        <item>Liegestütz</item>
+        <item>Cable Fly</item>
+        <item>Brustpresse</item>
+    </string-array>
+    <string-array name="array_schulter">
+        <item>Frontheben</item>
+        <item>Arnold-Press</item>
+        <item>Schulterdrücken</item>
+        <item>Military Press</item>
+    </string-array>
 
     <string name="impressum">
 <h1>Impressum</h1><p>SRKM UG (haftungsbeschänkt)<br />
