@@ -4,12 +4,17 @@
     android:id="@+id/CardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="2dp"
-    android:layout_marginLeft="2dp"
-    android:layout_marginRight="2dp"
-    android:layout_marginBottom="2dp"
-    app:cardCornerRadius="4dp">
-
+    app:cardElevation="10dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginLeft="10dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="15dp">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_margin="6dp"
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -38,60 +43,71 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:textSize="20sp"
-                android:layout_height="wrap_content"
-                android:text="Übung: "/>
+
             <TextView
                 android:id="@+id/uebungName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp" />
+                android:textStyle="bold"
+                android:textColor="#F8554A4A"
+                android:textSize="22sp" />
         </LinearLayout>
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="Muskelgruppe: "/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/uebungMuskelgruppe"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="Saetze: "/>
+                android:textStyle="bold"
+                android:textColor="#F8554A4A"
+                android:textSize="16sp" />
+
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/uebungSaetze"
-                android:textSize="18sp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="Wiederholungen: "/>
+                android:textSize="16sp"
+                android:textColor="#F8554A4A"
+                android:textStyle="bold"
+                android:layout_toLeftOf="@id/fuell"
+                />
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/fuell"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#F8554A4A"
+                android:textStyle="bold"
+                android:layout_toLeftOf="@id/uebungWiederholung"
+                android:text=" * "/>
+            <TextView
                 android:id="@+id/uebungWiederholung"
-                android:textSize="18sp"/>
-        </LinearLayout>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#F8554A4A"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_toLeftOf="@id/wdh"
+                android:gravity="right"
+                />
+            <TextView
+                android:id="@+id/wdh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#F8554A4A"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:text=" Wdh."
+                android:layout_alignParentRight="true"
+                android:gravity="right"
+                />
+        </RelativeLayout>
+
 
     </LinearLayout>
-
+</LinearLayout>
 </androidx.cardview.widget.CardView>

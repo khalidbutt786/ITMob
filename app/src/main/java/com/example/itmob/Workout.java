@@ -25,16 +25,39 @@ public class Workout extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_workout, container, false);
-        btn = view.findViewById(R.id.trainingsplan);
+        view = inflater.inflate(R.layout.fragment_workout1, container, false);
+
+
+        HomeActivity activity = (HomeActivity) getActivity();
+        String email = activity.getUsername();
+        String finalEmail = email;
+        DBHelper dataBaseHelper = new DBHelper(getContext());
+        int userId = dataBaseHelper.getUserID(finalEmail);
+        String userID = valueOf(userId);
+        ArrayList<Uebung> people = dataBaseHelper.getAll(userID);
+        btn = (Button) view.findViewById(R.id.btnAdd);
+
+        // Initialize RecyclerView.
+        MyFragmentViewAdapter fragmentViewAdapter = new MyFragmentViewAdapter(people);
+        RecyclerView fragmentRecyclerView = view.findViewById(R.id.infoDisplay);
+        fragmentRecyclerView.setAdapter(fragmentViewAdapter);
+        fragmentRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        //HomeActivity activity = (HomeActivity) getActivity();
+        //String email = activity.getUsername();
+        //String finalEmail = email;
+        //String userId = activity.getUserID();
 
 
         btn.setOnClickListener(view -> {
-            Fragment fragment = new Workout1();
-            replaceFragment(fragment);
-                });
-        return view;
+            // Go to Fragment 2 to view data.
+            //int userId = dataBaseHelper.getUserID(finalEmail);
 
+            //Toast.makeText(getContext(), valueOf(userId), Toast.LENGTH_SHORT).show();
+            Fragment fragment = new NeueUebung();
+            replaceFragment(fragment);
+        });
+        return view;
     }
 
     private void replaceFragment(Fragment fragment) {
@@ -44,13 +67,11 @@ public class Workout extends Fragment {
         fragmentTransaction.replace(R.id.container, fragment);
         fragmentTransaction.commit();
     }
-
-
     @Override
     public void onResume() {
         super.onResume();
         HomeActivity homeActivity = ((HomeActivity) getActivity());
-        homeActivity.setTitle("Trainingspläne");
+        homeActivity.setTitle("Trainingsplan");
     }
 
 }
