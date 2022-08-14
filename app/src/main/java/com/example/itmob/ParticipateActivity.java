@@ -136,12 +136,37 @@ public class ParticipateActivity extends AppCompatActivity {
         instructorName_participate.setText(trainer);
         headingTv.setText(kursBeschreibung);
 
-        if(kursname.contains("Body") || kursname.contains("BODY")){
+        if(kursname.equals("Pilates")){
+            imageView_courseBild.setImageDrawable(getResources().getDrawable(R.drawable.pilates));
+        }
+        if(kursname.equals("BodyFit")){
             imageView_courseBild.setImageDrawable(getResources().getDrawable(R.drawable.bodyfit));
         }
-        if(kursname.contains("slim")){
-            imageView_courseBild.setImageDrawable(getResources().getDrawable(R.drawable.yoga));
+        if(kursname.equals("RückenFit")){
+            imageView_courseBild.setImageDrawable(getResources().getDrawable(R.drawable.rueckenfit));
         }
+        if(kursname.equals("Zumba")){
+            imageView_courseBild.setImageDrawable(getResources().getDrawable(R.drawable.zumba));
+        }
+        if(kursname.equals("Fatburner")){
+            imageView_courseBild.setImageDrawable(getResources().getDrawable(R.drawable.fatburner));
+        }
+        if(kursname.equals("Bodyworkout")){
+            imageView_courseBild.setImageDrawable(getResources().getDrawable(R.drawable.bodyfit));
+        }
+        if(kursname.equals("Bodypump")){
+            imageView_courseBild.setImageDrawable(getResources().getDrawable(R.drawable.bodyfit));
+        }
+        if(kursname.equals("Bauch Special")){
+            imageView_courseBild.setImageDrawable(getResources().getDrawable(R.drawable.sixpack));
+        }
+        if(kursname.equals("BBP Plus")){
+            imageView_courseBild.setImageDrawable(getResources().getDrawable(R.drawable.bbp));
+        }
+        if(kursname.equals("Body Balance")){
+            imageView_courseBild.setImageDrawable(getResources().getDrawable(R.drawable.balance));
+        }
+
 
 
         participateBtn.setOnClickListener(new View.OnClickListener() {
@@ -154,7 +179,7 @@ public class ParticipateActivity extends AppCompatActivity {
                 if (dbHelper.checkIfParticipated(modelCourses.getId(),email)){
 
                         dbHelper.unRollUserFromCourse(modelCourses.getId());
-                    Toast.makeText(ParticipateActivity.this, "You've unrolled from the course", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ParticipateActivity.this, "Du hast dich vom Kurs abgemeldet.", Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(ParticipateActivity.this , HomeActivity.class);
                         intent.putExtra("Email",email);

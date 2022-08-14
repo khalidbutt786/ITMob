@@ -1,6 +1,5 @@
 package com.example.itmob;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -15,7 +14,7 @@ public class HomeActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
-    NFC nfcFragment = new NFC();
+    Home nfcFragment = new Home();
     Profil profilFragment = new Profil();
     QRCamera qrCameraFragment = new QRCamera();
     Community communityFragment = new Community();

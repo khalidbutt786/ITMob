@@ -113,6 +113,7 @@ public class VertragsdatenFragment extends Fragment {
         kuendigungsvormerkung = userdata.get(8);
         standort = "FutureFitness in Frankfurt am Main";
         abrechnungsTag = startLaufzeit.substring(0,2);
+        vertragsnummer = userdata.get(7);
 
 
 
@@ -192,6 +193,7 @@ public class VertragsdatenFragment extends Fragment {
                                                 "Authentifizierung erfolgreich!", Toast.LENGTH_SHORT).show();
                                         dialog.dismiss();
                                         zeigeBestaetigungsPopUp(view);
+                                        kuendigung.setVisibility(View.GONE);
 
 
                                     }
@@ -233,7 +235,7 @@ public class VertragsdatenFragment extends Fragment {
     private void zeigeBestaetigungsPopUp(View view) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(view.getContext());
 
-        builder1.setMessage("Hallo "+ "\n\nWir haben deine Vormerkung erhalten und melden uns innerhalb der nächsten 2-3 Tage postialisch bei dir. \n\n\nDein Fitnessstudio \nFutureFitness");
+        builder1.setMessage("Hallo "+ "\n\nWir haben deine Vormerkung erhalten. Rufe uns unter 015484458 an, um deine Kündigung wirksam zu machen (ganz ohne Papierkram). \n\n\nDein Fitnessstudio \nFutureFitness");
         builder1.setCancelable(true);
 
         builder1.setPositiveButton(
@@ -249,6 +251,7 @@ public class VertragsdatenFragment extends Fragment {
         DBHelper db = new DBHelper(this.getContext());
         db.updateKuendigungsstatus(vertragsnummer);
         boolean status = db.getKuendigungsStatus(vertragsnummer);
+        textView_kuendigungsvormerkung.setText("Kündigung bereits vorgemerkt. Rufe uns unter 015484458 an, um deine Kündigung wirksam zu machen (ganz ohne Papierkram).");
 
     }
 

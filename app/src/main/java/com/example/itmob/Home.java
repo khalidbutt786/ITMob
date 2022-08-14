@@ -23,7 +23,7 @@ import com.google.zxing.qrcode.encoder.QRCode;
 import java.util.ArrayList;
 
 
-public class NFC extends Fragment {
+public class Home extends Fragment {
     NfcAdapter nfcAdapter;
     TextView mitgliedsnummer,vertragsinhaber, gueltig_bis, auslastung, auswertung;
 
@@ -41,7 +41,7 @@ public class NFC extends Fragment {
     ImageView qrcode;
 
 
-    public NFC() {
+    public Home() {
 
 
     }

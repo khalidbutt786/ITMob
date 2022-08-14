@@ -297,7 +297,7 @@ public class Profil extends Fragment {
 
                         promptInfo = new BiometricPrompt.PromptInfo.Builder()
                                 .setTitle("Fingerabrduck verwenden")
-                                .setSubtitle("Verifikation wird benötigt um die Konto zu löschen.")
+                                .setSubtitle("Verifikation wird benötigt um das Konto zu löschen.")
                                 .setNegativeButtonText("PIN-Eingabe")
                                 .build();
 

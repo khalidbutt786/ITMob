@@ -11,6 +11,28 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/*
+
+Used Images for Demo purposes:
+
+https://unsplash.com/photos/JwYsUx7JyuA Gustavo Torres November 9, 2018
+
+https://unsplash.com/photos/3qZt1MwF4Zo Matthew Sichkaruk Published on January 6, 2021
+
+https://unsplash.com/photos/FodEsaNZs48 Luis Vidal Published on January 27, 2020
+
+https://unsplash.com/photos/lrQPTQs7nQQ Jonathan Borba Published on October 14, 2019
+
+https://unsplash.com/photos/A_ftsTh53lM Trust "Tru" Katsande Published on March 12, 2018
+
+https://unsplash.com/photos/gJtDg6WfMlQ bruce mars Published on February 14, 2018
+
+https://unsplash.com/photos/buWcS7G1_28 Meghan Holmes Published on August 14, 2018
+
+https://unsplash.com/photos/YJdCZba0TYE Dylan Gillis Published on May 1, 2020
+
+https://unsplash.com/photos/y0SMHt74yqc bruce mars Published on February 11, 2018*/
+
 public class MainActivity extends AppCompatActivity {
 
     EditText email, password, repassword, vertragsID;
