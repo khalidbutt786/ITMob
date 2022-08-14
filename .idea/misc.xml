@@ -59,10 +59,12 @@
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/profil_bearbeiten_button.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/recycler_participants.xml" value="0.25729166666666664" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/rufe_uns_an.xml" value="0.2109375" />
+        <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/spinner_layout.xml" value="0.3" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/vertragdetails.xml" value="0.21927083333333333" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/vertragsdaten_ansehen.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/layout/vertragsdaten_details.xml" value="0.21927083333333333" />
         <entry key="..\:/Users/khali/AndroidStudioProjects/ITMob/app/src/main/res/menu/bottom_nav_menu.xml" value="0.19375" />
+        <entry key="..\:/Users/khali/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_dropdown_item.xml" value="0.3046875" />
       </map>
     </option>
   </component>

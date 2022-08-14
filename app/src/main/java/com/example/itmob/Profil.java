@@ -250,7 +250,7 @@ public class Profil extends Fragment {
 
                 final AlertDialog dialog = new AlertDialog.Builder(view.getContext())
                         .setTitle("Konto löschen?")
-                        .setMessage("Falls Sie Ihr Konto löschen möchten, \n\nklicken Sie auf Weiter um die Löschung durchzuführen.\n\nSie können sich jederzeit wieder registrieren.")
+                        .setMessage("Falls du dein Konto löschen möchtest, \n\nklicke auf Weiter um die Löschung durchzuführen.\n\nDu kannst dich jederzeit wieder registrieren.")
                         .setPositiveButton("Weiter", null)
                         .setNegativeButton("Abbrechen", null)
                         .show();
@@ -296,7 +296,7 @@ public class Profil extends Fragment {
                         });
 
                         promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                                .setTitle("Fingerabrduck verwenden")
+                                .setTitle("Fingerabdruck verwenden")
                                 .setSubtitle("Verifikation wird benötigt um das Konto zu löschen.")
                                 .setNegativeButtonText("PIN-Eingabe")
                                 .build();

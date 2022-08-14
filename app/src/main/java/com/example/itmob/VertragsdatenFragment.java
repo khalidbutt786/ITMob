@@ -163,7 +163,7 @@ public class VertragsdatenFragment extends Fragment {
                     else {
                         final AlertDialog dialog = new AlertDialog.Builder(view.getContext())
                                 .setTitle("Kündigung vormerken")
-                                .setMessage("Falls Sie planen Ihre Mitgliedschaft zu kündigen, können Sie Ihre Kündigung über unsere App vormerken. \n\nKlicken Sie auf Weiter um die Kündigung vorzumerken.")
+                                .setMessage("Falls du planst deine Mitgliedschaft zu kündigen, kannst du deine Kündigung über unsere App vormerken. \n\nKlicke auf Weiter um die Kündigung vorzumerken.")
                                 .setPositiveButton("Weiter", null)
                                 .setNegativeButton("Abbrechen", null)
                                 .show();
@@ -208,7 +208,7 @@ public class VertragsdatenFragment extends Fragment {
                                 });
 
                                 promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                                        .setTitle("Fingerabrduck verwenden")
+                                        .setTitle("Fingerabdruck verwenden")
                                         .setSubtitle("Verifikation wird benötigt um die Kündigung vorzumerken.")
                                         .setNegativeButtonText("PIN-Eingabe")
                                         .build();

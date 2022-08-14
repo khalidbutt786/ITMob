@@ -12,7 +12,7 @@
         android:icon="@drawable/ic_baseline_group_work_24"/>
     <item
         android:id="@+id/workout"
-        android:title="Workout"
+        android:title="Trainingsplan"
         android:icon="@drawable/ic_baseline_fitness_center_24"/>
 
     <item

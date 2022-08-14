@@ -99,7 +99,7 @@ Author: Sachintha Madhawa Deniyegedara
         android:layout_marginStart="70dp"
         android:layout_marginTop="410dp"
         android:layout_marginEnd="70dp"
-        android:hint="Passwort wiederholenm"
+        android:hint="Passwort wiederholen"
         android:textColorHint="#A7A7A7"
         app:endIconMode="password_toggle"
         app:boxStrokeColor="#EAEAEE"
